@@ -1,6 +1,6 @@
 "use server";
 
-import { createAccessTokenSession, createSession } from "@/lib/session";
+import { createSession } from "@/lib/session";
 import { APIError } from "@/types/errors";
 
 export const login = async (prevState: unknown, formData: FormData) => {
@@ -29,7 +29,6 @@ export const login = async (prevState: unknown, formData: FormData) => {
 
     // create cookie session
     await createSession(data?.data?.refreshToken as string);
-    await createAccessTokenSession(data?.data?.accessToken as string);
 
     return {
       sucess: data.message,

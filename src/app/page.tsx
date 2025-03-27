@@ -1,20 +1,10 @@
-import { fetchWithAuth } from "@/lib/api";
-import React from "react";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const handleAdmins = async () => {
-    try {
-      const response = await fetchWithAuth("/api/admin/v1/admin", {
-        next: { tags: ["admins"] },
-      });
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      return null;
-    }
-  };
+  const refreshToken = await cookies().get("refreshToken")?.value;
 
-  const data = await handleAdmins();
+  if (!refreshToken) redirect("/login");
 
-  return <div>{JSON.stringify(data)}</div>;
+  redirect("/dashboard");
 }
