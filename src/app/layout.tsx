@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ProgressProviders from "@/providers/ProgressProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Admin Panel | X-Obese",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans antialiased`}>
         <ProgressProviders>{children}</ProgressProviders>
+        <Toaster position='top-right' richColors closeButton />
       </body>
     </html>
   );
