@@ -12,3 +12,15 @@ export async function createSession(token: string) {
     path: "/",
   });
 }
+
+export async function createAccessTokenSession(token: string) {
+  const expiresAt = new Date(Date.now() + 1 * 1 * 15 * 60 * 1000); // 15 m
+
+  await cookies().set("accessToken", token, {
+    httpOnly: true,
+    secure: false,
+    expires: expiresAt,
+    sameSite: "lax",
+    path: "/",
+  });
+}

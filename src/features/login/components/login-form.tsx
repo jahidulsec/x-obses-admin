@@ -10,15 +10,18 @@ import { useFormState, useFormStatus } from "react-dom";
 import { login } from "../actions/login";
 import { ErrorMessage } from "@/components/text/error-message";
 import { toast } from "sonner";
+import { useRouter } from "next-nprogress-bar";
 
 const LoginForm = () => {
   const [data, action] = useFormState(login, null);
+  const router = useRouter()
 
   useEffect(() => {
     if (data?.toast) {
       toast.error(data.toast);
     } else if (data?.sucess) {
       toast.success(data?.sucess);
+      router.push('/')
     }
   }, [data]);
 
