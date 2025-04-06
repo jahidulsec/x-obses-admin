@@ -2,26 +2,37 @@ import React from "react";
 import HeaderSection from "./header";
 import { TableContainer, TableWrapper } from "@/components/table/table";
 import { DataTable } from "../../../components/table/data-table";
-import { columns, Payment } from "./columns";
-import { payments } from "@/lib/data";
+import { columns } from "./columns";
 import { PagePagination } from "@/components/pagination/pagination";
+import { getMarathons } from "../server/marathons";
+import { SearchParams } from "@/types/search-params";
 
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return payments;
-}
+export default async function TableSection({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const { q, p } = await searchParams;
 
-export default async function TableSection() {
-  const data = await getData();
+  const page = Number(p) ?? 1;
+  const limit = 20;
+
+  const marathons = await getMarathons();
 
   return (
     <TableContainer>
       <HeaderSection />
       <TableWrapper>
         {/* table */}
-        <DataTable columns={columns} data={data} />
+        <DataTable
+          columns={columns}
+          data={marathons.data ? marathons.data?.data : []}
+        />
       </TableWrapper>
-      <PagePagination count={10} limit={5} />
+      <PagePagination
+        count={marathons.data ? marathons.data.pagination.total_items : page}
+        limit={marathons.data ? marathons.data.pagination.per_page : limit}
+      />
     </TableContainer>
   );
 }

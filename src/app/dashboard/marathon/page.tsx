@@ -1,12 +1,19 @@
-import { CardSection } from '@/features/marathon/components/card'
-import TableSection from '@/features/marathon/components/table-section'
-import React from 'react'
+import CardSection from "@/features/marathon/components/card";
+import TableSection from "@/features/marathon/components/table-section";
+import { SearchParams } from "@/types/search-params";
+import React, { Suspense } from "react";
 
-export default function MarathonPage() {
+export default async function MarathonPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   return (
     <>
       <CardSection />
-      <TableSection />
+      <Suspense>
+        <TableSection searchParams={searchParams} />
+      </Suspense>
     </>
-  )
+  );
 }
