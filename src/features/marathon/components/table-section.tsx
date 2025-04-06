@@ -30,7 +30,7 @@ export default async function TableSection({
         />
       </TableWrapper>
       <PagePagination
-        count={marathons.data ? marathons.data.pagination.total_items : page}
+        count={marathons.data ? marathons.data.pagination.total_items : 0}
         limit={marathons.data ? marathons.data.pagination.per_page : limit}
       />
     </TableContainer>

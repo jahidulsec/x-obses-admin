@@ -31,8 +31,6 @@ const fetchRefreshToken = async () => {
 };
 
 export const fetchWithAuth = async (url: string, init?: RequestInit) => {
-  console.log("a", accessToken);
-
   const response = await fetch(`${API_BASE_URL}${url}`, {
     ...init,
     headers: {
