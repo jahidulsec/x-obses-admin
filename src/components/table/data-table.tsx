@@ -15,6 +15,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -25,9 +27,18 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const searchParams = useSearchParams();
+  const [pagination, setPagination] = useState({
+    pageIndex: (Number(searchParams.get("p")) || 0) - 1,
+    pageSize: 20, // Change to your preferred page size
+  });
+
   const table = useReactTable({
     data,
     columns,
+    state: {
+      pagination,
+    },
     getCoreRowModel: getCoreRowModel(),
   });
 

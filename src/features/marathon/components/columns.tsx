@@ -13,7 +13,6 @@ import {
 import { formatDate } from "@/lib/formatters";
 import { ColumnDef } from "@tanstack/react-table";
 import { Dot, Edit, ListStart, MoreVertical, Trash } from "lucide-react";
-import Image from "next/image";
 
 export type Marathon = {
   id: string;
@@ -33,21 +32,13 @@ export type Marathon = {
 
 export const columns: ColumnDef<Marathon>[] = [
   {
-    accessorKey: "imagePath",
-    header: "",
-    cell: ({ row }) => {
-      const marathon = row.original;
-
+    header: "#",
+    cell: ({ row, table }) => {
+      const pageIndex = table.getState().pagination.pageIndex;
+      const pageSize = table.getState().pagination.pageSize;
       return (
-        <div className="relative w-14 aspect-square border rounded-lg overflow-hidden">
-          <Image
-            src={marathon.imagePath ?? ""}
-            alt={marathon.title}
-            fill
-            objectFit="cover"
-          />
-        </div>
-      );
+        <span># {row.index + 1 + pageIndex * pageSize}</span>
+      )
     },
   },
   {
@@ -108,29 +99,31 @@ export const columns: ColumnDef<Marathon>[] = [
       const marathon = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreVertical className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(marathon.id)}
-            >
-              <Edit /> Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <ListStart /> Leaderboard
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive hover:bg-destructive hover:text-destructive-foreground">
-              <Trash /> Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex justify-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreVertical className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(marathon.id)}
+              >
+                <Edit /> Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <ListStart /> Leaderboard
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="text-destructive">
+                <Trash /> Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       );
     },
   },
