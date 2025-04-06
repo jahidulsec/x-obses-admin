@@ -1,11 +1,11 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { Button } from "../ui/button";
 import { Layers, PanelLeft } from "lucide-react";
-import { Separator } from "../ui/separator";
 import { cn } from "@/lib/utils";
 import { Logo } from "../logo/logo";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface SidebarContextProps {
   open: boolean;
@@ -33,7 +33,7 @@ const SidebarProvider = ({
   style,
   ...props
 }: React.ComponentProps<"div">) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <SidebarContext.Provider
@@ -74,17 +74,18 @@ const Sidebar = ({
       data-state={open ? "expanded" : "collapsed"}
       className={cn(
         `min-h-svh h-full sticky top-0 data-[state=expanded]:w-[var(--sidebar-width)] w-[var(--sidebar-width-icon)] transition-all duration-300 hidden pt-5 sm:flex flex-col justify-between ${
-          !open ? "items-center" : "px-3"
+          !open ? "items-center" : ""
         }`,
         className
       )}
+      {...props}
     >
       {children}
     </aside>
   );
 };
 
-const SidebarContainer = ({
+const SidebarContentContainer = ({
   children,
   className,
   ...props
@@ -92,7 +93,7 @@ const SidebarContainer = ({
   return (
     <div
       className={cn(
-        `w-full bg-white sm:rounded-lg sm:m-1 shadow-md`,
+        `w-full bg-background sm:border overflow-hidden sm:rounded-lg sm:m-1 shadow-md`,
         className
       )}
       {...props}
@@ -102,69 +103,74 @@ const SidebarContainer = ({
   );
 };
 
-const SidebarTopSection = () => {
-  const { open } = useSidebarContext();
+const SidebarTopSection = ({
+  className,
+  ...props
+}: React.ComponentProps<"section">) => {
+  return <section className={cn("top", className)} {...props} />;
+};
 
-  return (
-    <div className="top">
-      {/* logo section */}
-      <div className="logo flex gap-2 items-center">
-        <Logo />
-        <h1
-          className={`text-nowrap font-semibold ${open ? "block" : "hidden"}`}
-        >
-          X-Obese
-        </h1>
-      </div>
-
-      {/* menu container */}
-      <SidebarMenuContainer>
-        <SidebarMenu button={{ title: "What", icon: Layers }} />
-      </SidebarMenuContainer>
-    </div>
-  );
+const SidebarBottomSection = ({
+  className,
+  ...props
+}: React.ComponentProps<"section">) => {
+  return <section className={cn("mb-2", className)} {...props} />;
 };
 
 const SidebarMenuContainer = ({
   className,
   ...props
 }: React.ComponentProps<"section">) => {
-  return (
-    <section className={cn("flex flex-col gap-5 my-5", className)} {...props} />
-  );
+  return <section className={cn("flex flex-col my-5", className)} {...props} />;
 };
 
 type ButtonPrpos = {
   icon: React.ElementType;
   title: string;
+  url?: string;
 };
 
 const SidebarMenu = ({
   className,
   button,
   ...props
-}: React.ComponentProps<"button"> & { button: ButtonPrpos }) => {
+}: React.ComponentProps<"a"> & { button: ButtonPrpos }) => {
+
+  const pathname = usePathname()
+
   return (
-    <button
-      className={cn("flex gap-2 hover:bg-muted hover:px-4 py-2 transition-all duration-300", className)}
+    <Link
+      role="button"
+      href={button.url || "#"}
+      className={cn(
+        "flex items-center gap-2 hover:bg-muted hover:text-muted-foreground rounded-lg p-2 mx-1.5 group transition-all duration-300",
+        button.url === pathname ? "bg-primary text-primary-foreground" : "",
+        className
+      )}
       {...props}
     >
-      <button.icon className="text-primary" />
-      {button.title}
-    </button>
+      <button.icon className="group-hover:text-primary transition-colors duration-300 min-w-4 w-4" />
+      <SidebarToggleText className="text-sm">{button.title}</SidebarToggleText>
+    </Link>
   );
 };
 
-const SidebarToggleText = ({className, ...props}: React.ComponentProps<'h3'>) => {
-    return (
-        <h3 className={cn("", className)} {...props}/>
-    )
-}
+const SidebarToggleText = ({
+  className,
+  ...props
+}: React.ComponentProps<"h3">) => {
+  const { open } = useSidebarContext();
+  return <h3 className={cn(open ? "block" : "hidden", className)} {...props} />;
+};
 
 export {
   Sidebar,
   useSidebarContext,
   SidebarProvider,
-  SidebarContainer,
+  SidebarContentContainer,
   SidebarTopSection,
+  SidebarMenu,
+  SidebarMenuContainer,
+  SidebarToggleText,
+  SidebarBottomSection,
 };

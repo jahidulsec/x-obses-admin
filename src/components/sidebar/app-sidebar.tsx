@@ -1,14 +1,16 @@
 import React from "react";
-import { Sidebar, SidebarTopSection } from "./sidebar";
+import { Sidebar } from "./sidebar";
+import { NavMain } from "./nav-main";
+import { NavUser } from "./nav-user";
 
 const AppSidebar = () => {
   return (
     <Sidebar>
       {/* top */}
-      <SidebarTopSection />
+      <NavMain />
 
       {/* bottom */}
-      <div className="bottom">bottom</div>
+      <NavUser />
     </Sidebar>
   );
 };
