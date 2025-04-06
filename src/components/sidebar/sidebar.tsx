@@ -93,7 +93,7 @@ const SidebarContentContainer = ({
   return (
     <div
       className={cn(
-        `w-full bg-background sm:border overflow-hidden sm:rounded-lg sm:m-1 shadow-md`,
+        `w-full bg-background sm:border sm:rounded-lg sm:m-1 shadow-md relative min-h-svh h-full`,
         className
       )}
       {...props}

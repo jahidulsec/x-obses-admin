@@ -13,7 +13,7 @@ const AppNavbar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center gap-3 py-3 border-b mb-3 px-4 sticky top-0 bg-background">
+    <nav className="flex items-center gap-3 py-3 border-b mb-3 px-4 sticky top-0 bg-background sm:rounded-t-lg z-10">
       <Button
         variant={"ghost"}
         size={"icon"}
