@@ -38,7 +38,7 @@ const TableHeaderSectionTitle = ({
   return (
     <h3
       className={cn(
-        "text-xl font-bold text-accent-foreground/85 border-l-2 border-primary pl-2",
+        "flex items-center gap-2 text-xl font-bold text-accent-foreground/85 [&_svg]:size-4 [&_svg]:text-primary",
         className
       )}
       {...props}

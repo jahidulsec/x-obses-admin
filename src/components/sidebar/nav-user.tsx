@@ -9,7 +9,7 @@ const NavUser = () => {
     <SidebarBottomSection>
       <SidebarMenu button={{ title: "Settings", icon: Bolt }} />
       <SidebarMenu
-        className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
+        className="text-destructive hover:bg-destructive/15 hover:text-foreground"
         button={{ title: "Logout", icon: LogOut }}
       />
     </SidebarBottomSection>
