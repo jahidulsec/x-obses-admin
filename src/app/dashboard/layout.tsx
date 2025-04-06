@@ -15,7 +15,7 @@ export default function AdminLayout({ children }: PropsWithChildren) {
       {/* main content */}
       <SidebarContentContainer>
         <AppNavbar />
-        <main className="px-4 min-h-[120vh]">{children}</main>
+        <main className="px-4 min-h-[120vh] flex flex-col gap-5">{children}</main>
       </SidebarContentContainer>
     </SidebarProvider>
   );
