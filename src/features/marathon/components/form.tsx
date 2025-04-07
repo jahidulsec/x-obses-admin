@@ -19,21 +19,22 @@ import { useFormState } from "react-dom";
 import { toast } from "sonner";
 import { addMarathon } from "../action/marathon";
 import { ErrorMessage } from "@/components/text/error-message";
+import { MultiInput } from "@/components/inputs/mulit-input";
 
-const MarathonForm = () => {
+const MarathonForm = ({ onClose }: { onClose: () => void }) => {
   const [type, setType] = useState("");
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [rewards, setRewards] = useState<string | undefined>("");
 
   const [data, action] = useFormState(addMarathon, null);
-  const router = useRouter();
 
   useEffect(() => {
     if (data?.toast) {
       toast.error(data.toast);
     } else if (data?.sucess) {
       toast.success(data?.sucess);
-      router.push("/");
+      onClose();
     }
   }, [data]);
 
@@ -65,7 +66,7 @@ const MarathonForm = () => {
           name="distanceKm"
           placeholder="Type marathon distance."
         />
-        {data?.error.distanceKm && (
+        {data?.error && (
           <ErrorMessage message={"Enter a valid number of distance in km"} />
         )}
       </p>
@@ -83,7 +84,7 @@ const MarathonForm = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        {data?.error.type && <ErrorMessage message={"Select a type"} />}
+        {data?.error && <ErrorMessage message={"Select a type"} />}
       </p>
       {type === "onsite" && (
         <p>
@@ -92,9 +93,7 @@ const MarathonForm = () => {
             name="location"
             placeholder="Type your marathon location here."
           />
-          {data?.error.location && (
-            <ErrorMessage message={"Enter a location"} />
-          )}
+          {data?.error && <ErrorMessage message={"Enter a location"} />}
         </p>
       )}
 
@@ -102,35 +101,53 @@ const MarathonForm = () => {
         <Label>Start Date</Label>
         <Input
           type="datetime-local"
+          placeholder="Type your marathon start date here."
+          onChange={(e) => {
+            if (e.target.value) {
+              setStartDate(new Date(e.target.value));
+            }
+          }}
+        />
+
+        <input
+          type="hidden"
           name="startDate"
           value={startDate?.toUTCString()}
-          onChange={(e) => {
-            const inputValue = e.target.value;
-            setStartDate(new Date(inputValue));
-          }}
-          placeholder="Type your marathon start date here."
         />
-        {data?.error.startDate && (
-          <ErrorMessage message={data?.error.startDate} />
-        )}
+
+        {data?.error && <ErrorMessage message={data?.error.startDate} />}
       </p>
       <p>
         <Label>End Date</Label>
         <Input
           type="datetime-local"
-          name="startDate"
           placeholder="Type your marathon location here."
+          onChange={(e) => {
+            if (e.target.value) {
+              setEndDate(new Date(e.target.value));
+            }
+          }}
         />
-        {data?.error.endDate && (
-          <ErrorMessage message={"Select a date of marathon"} />
-        )}
+
+        <input type="hidden" name="endDate" value={endDate?.toUTCString()} />
+
+        {data?.error && <ErrorMessage message={"Select a date of marathon"} />}
       </p>
       <p>
         <Label>Image</Label>
         <Input type="file" name="imagePath" />
-        {data?.error.imagePath && (
-          <ErrorMessage message={data?.error.imagePath} />
-        )}
+        {data?.error && <ErrorMessage message={data?.error.imagePath} />}
+      </p>
+
+      <p>
+        <Label>Rewards</Label>
+
+        <MultiInput
+          placeholder="Enter rewards using ; as separator"
+          onValueChange={(value) => setRewards(value.join(";"))}
+        />
+        <input type="hidden" name="reward" value={rewards} />
+        {data?.error && <ErrorMessage message={data?.error.reward} />}
       </p>
 
       <FormSubmitButton />

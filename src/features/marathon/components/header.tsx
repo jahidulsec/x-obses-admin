@@ -50,7 +50,7 @@ export default function HeaderSection() {
 
           {/* form */}
           <div className="mt-5">
-            <MarathonForm />
+            <MarathonForm onClose={() => setOpen(false)} />
           </div>
         </SheetContent>
       </Sheet>

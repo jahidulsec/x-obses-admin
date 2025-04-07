@@ -4,13 +4,17 @@ import { Marathon } from "../components/columns";
 import { APIError } from "@/types/errors";
 
 interface ResponseType {
-    data: SuccessMulti<Marathon> | null
-    error: APIError | null
+  data: SuccessMulti<Marathon> | null;
+  error: APIError | null;
 }
 
 export const getMarathons = async (): Promise<ResponseType> => {
   try {
-    const response = await fetchWithAuth("/api/marathon/v1/marathon");
+    const response = await fetchWithAuth("/api/marathon/v1/marathon", {
+      next: {
+        tags: ["marathon"],
+      },
+    });
     const data = await response.json();
 
     if (!response.ok) throw data;

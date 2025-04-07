@@ -36,9 +36,7 @@ export const columns: ColumnDef<Marathon>[] = [
     cell: ({ row, table }) => {
       const pageIndex = table.getState().pagination.pageIndex;
       const pageSize = table.getState().pagination.pageSize;
-      return (
-        <span># {row.index + 1 + pageIndex * pageSize + pageSize}</span>
-      )
+      return <span># {row.index + 1 + pageIndex * pageSize + pageSize}</span>;
     },
   },
   {
@@ -72,7 +70,7 @@ export const columns: ColumnDef<Marathon>[] = [
     cell: ({ row }) => {
       const marathon = row.original;
 
-      return <span>{formatDate(new Date(marathon.createdAt))}</span>;
+      return <span>{formatDate(new Date(marathon.startDate))}</span>;
     },
   },
   {
@@ -81,7 +79,7 @@ export const columns: ColumnDef<Marathon>[] = [
     cell: ({ row }) => {
       const marathon = row.original;
 
-      return <span>{formatDate(new Date(marathon.createdAt))}</span>;
+      return <span>{formatDate(new Date(marathon.endDate))}</span>;
     },
   },
   {
