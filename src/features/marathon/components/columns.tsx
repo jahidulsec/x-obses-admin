@@ -36,7 +36,7 @@ export const columns: ColumnDef<Marathon>[] = [
     cell: ({ row, table }) => {
       const pageIndex = table.getState().pagination.pageIndex;
       const pageSize = table.getState().pagination.pageSize;
-      return <span># {row.index + 1 + pageIndex * pageSize + pageSize}</span>;
+      return <span className="text-nowrap"># {row.index + 1 + (pageIndex * pageSize)}</span>;
     },
   },
   {

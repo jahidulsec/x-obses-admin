@@ -29,7 +29,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const searchParams = useSearchParams();
   const [pagination, setPagination] = useState({
-    pageIndex: (Number(searchParams.get("p")) || 0) - 1,
+    pageIndex: (Number(searchParams.get("p")) || 1) - 1,
     pageSize: 20, // Change to your preferred page size
   });
 
