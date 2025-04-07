@@ -16,8 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans antialiased`}>
-        <ProgressProviders>{children}</ProgressProviders>
-        <Toaster position='top-right' richColors closeButton />
+        <ProgressProviders>
+          {children}
+          <Toaster position="top-right" richColors closeButton />
+        </ProgressProviders>
       </body>
     </html>
   );

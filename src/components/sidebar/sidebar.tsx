@@ -141,7 +141,7 @@ const SidebarMenu = ({
   return (
     <Link
       role="button"
-      href={button.url || "#"}
+      href={button?.url ?? ""}
       className={cn(
         "flex items-center gap-2 border border-transparent hover:border-primary hover:bg-muted hover:text-muted-foreground rounded-lg p-2 mx-1.5 group transition-all duration-300",
         button.url === pathname ? "bg-primary text-primary-foreground" : "",

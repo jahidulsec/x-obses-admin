@@ -20,6 +20,10 @@
   }
 }
 
+.nprogress {
+  z-index: 1000000 !important;
+}
+
 
 @layer base {
   :root {
