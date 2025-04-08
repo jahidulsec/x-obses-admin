@@ -6,6 +6,7 @@ import { columns } from "./columns";
 import { PagePagination } from "@/components/pagination/pagination";
 import { getMarathons } from "../server/marathons";
 import { SearchParams } from "@/types/search-params";
+import { DEFAULT_PAGE_SIZE } from "@/lib/data";
 
 export default async function TableSection({
   searchParams,
@@ -14,7 +15,7 @@ export default async function TableSection({
 }) {
   const params = await searchParams;
 
-  const limit = 20;
+  const limit = DEFAULT_PAGE_SIZE;
 
   const marathons = await getMarathons(params);
 

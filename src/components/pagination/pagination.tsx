@@ -22,7 +22,7 @@ function PagePagination({ limit, count }: { limit: number; count: number }) {
   const params = new URLSearchParams(searchParams);
 
   const noOfPages = Math.ceil(count / limit);
-  const currentPage = Number(searchParams.get("p")) || 1;
+  const currentPage = Number(searchParams.get("page")) || 1;
 
   const pageStart = currentPage <= 4 ? 2 : currentPage - 2;
   const pageStop =
@@ -34,10 +34,10 @@ function PagePagination({ limit, count }: { limit: number; count: number }) {
         <PaginationItem>
           <PaginationPrevious
             onClick={() => {
-              let value = Number(searchParams.get("p")) || 1;
+              let value = Number(searchParams.get("page")) || 1;
               if (value > 1) {
                 value -= 1;
-                params.set("p", value.toString());
+                params.set("page", value.toString());
                 params.toString();
                 router.push(pathname + "?" + params.toString());
               }
@@ -50,7 +50,7 @@ function PagePagination({ limit, count }: { limit: number; count: number }) {
             <PaginationLink
               isActive={currentPage === 1}
               onClick={() => {
-                params.set("p", "1");
+                params.set("page", "1");
                 params.toString();
                 router.push(pathname + "?" + params.toString());
               }}
@@ -68,10 +68,10 @@ function PagePagination({ limit, count }: { limit: number; count: number }) {
           {range(pageStart, pageStop).map((item) => (
             <PaginationItem key={item}>
               <PaginationLink
-                isActive={Number(searchParams.get("p") || 1) === item}
+                isActive={Number(searchParams.get("page") || 1) === item}
                 onClick={() => {
                   const value = item;
-                  params.set("p", value.toString());
+                  params.set("page", value.toString());
                   params.toString();
                   router.push(pathname + "?" + params.toString());
                 }}
@@ -92,7 +92,7 @@ function PagePagination({ limit, count }: { limit: number; count: number }) {
               <PaginationLink
                 isActive={currentPage === noOfPages}
                 onClick={() => {
-                  params.set("p", noOfPages.toString());
+                  params.set("page", noOfPages.toString());
                   params.toString();
                   router.push(pathname + "?" + params.toString());
                 }}
@@ -106,10 +106,10 @@ function PagePagination({ limit, count }: { limit: number; count: number }) {
         <PaginationItem>
           <PaginationNext
             onClick={() => {
-              let value = Number(searchParams.get("p")) || 1;
+              let value = Number(searchParams.get("page")) || 1;
               if (value < noOfPages) {
                 value += 1;
-                params.set("p", value.toString());
+                params.set("page", value.toString());
                 params.toString();
                 router.push(pathname + "?" + params.toString());
               }
