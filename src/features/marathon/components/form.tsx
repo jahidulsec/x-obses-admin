@@ -13,21 +13,34 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useRouter } from "next-nprogress-bar";
 import React, { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
-import { addMarathon } from "../action/marathon";
+import { addMarathon, updateMarathon } from "../action/marathon";
 import { ErrorMessage } from "@/components/text/error-message";
 import { MultiInput } from "@/components/inputs/mulit-input";
+import { Marathon } from "@/types/marathon";
+import Image from "next/image";
+import { X } from "lucide-react";
+import { deleteReward } from "../server/marathons";
 
-const MarathonForm = ({ onClose }: { onClose: () => void }) => {
+const MarathonForm = ({
+  onClose,
+  marathon,
+}: {
+  onClose: () => void;
+  marathon?: Marathon;
+}) => {
   const [type, setType] = useState("");
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [rewards, setRewards] = useState<string | undefined>("");
+  const [deletedRewardList, setDeletedRewardList] = useState<string[]>([]);
 
-  const [data, action] = useFormState(addMarathon, null);
+  const [data, action] = useFormState(
+    marathon ? updateMarathon.bind(null, marathon.id) : addMarathon,
+    null
+  );
 
   useEffect(() => {
     if (data?.toast) {
@@ -42,7 +55,11 @@ const MarathonForm = ({ onClose }: { onClose: () => void }) => {
     <Form action={action} className="flex flex-col gap-5 [&_p_input]:mt-1">
       <p>
         <Label>Title</Label>
-        <Input name="title" placeholder="Type marathon title." />
+        <Input
+          name="title"
+          placeholder="Type marathon title."
+          defaultValue={marathon?.title}
+        />
         {data?.error && <ErrorMessage message={data.error.title} />}
       </p>
 
@@ -51,12 +68,17 @@ const MarathonForm = ({ onClose }: { onClose: () => void }) => {
         <Textarea
           placeholder="Type your description here."
           name="description"
+          defaultValue={marathon?.description}
         />
         {data?.error && <ErrorMessage message={data.error.description} />}
       </p>
       <p>
         <Label>About</Label>
-        <Textarea placeholder="Type your about here." name="about" />
+        <Textarea
+          placeholder="Type your about here."
+          name="about"
+          defaultValue={marathon?.about}
+        />
         {data?.error && <ErrorMessage message={data.error.about} />}
       </p>
       <p>
@@ -65,14 +87,19 @@ const MarathonForm = ({ onClose }: { onClose: () => void }) => {
           type="number"
           name="distanceKm"
           placeholder="Type marathon distance."
+          defaultValue={marathon?.distanceKm}
         />
-        {data?.error && (
+        {data?.error?.distancekm && (
           <ErrorMessage message={"Enter a valid number of distance in km"} />
         )}
       </p>
       <p>
         <Label>Type</Label>
-        <Select name="type" onValueChange={(value) => setType(value)}>
+        <Select
+          name="type"
+          onValueChange={(value) => setType(value)}
+          defaultValue={marathon?.type}
+        >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Select a type" />
           </SelectTrigger>
@@ -84,7 +111,7 @@ const MarathonForm = ({ onClose }: { onClose: () => void }) => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        {data?.error && <ErrorMessage message={"Select a type"} />}
+        {data?.error?.type && <ErrorMessage message={"Select a type"} />}
       </p>
       {type === "onsite" && (
         <p>
@@ -92,8 +119,11 @@ const MarathonForm = ({ onClose }: { onClose: () => void }) => {
           <Input
             name="location"
             placeholder="Type your marathon location here."
+            defaultValue={marathon?.location}
           />
-          {data?.error && <ErrorMessage message={"Enter a location"} />}
+          {data?.error?.location && (
+            <ErrorMessage message={"Enter a location"} />
+          )}
         </p>
       )}
 
@@ -108,6 +138,11 @@ const MarathonForm = ({ onClose }: { onClose: () => void }) => {
             }
           }}
         />
+        {marathon?.startDate && (
+          <p className="text-sm text-muted-foreground">
+            Start Date - {new Date(marathon?.startDate).toLocaleString()}
+          </p>
+        )}
 
         <input
           type="hidden"
@@ -115,7 +150,9 @@ const MarathonForm = ({ onClose }: { onClose: () => void }) => {
           value={startDate?.toUTCString()}
         />
 
-        {data?.error && <ErrorMessage message={data?.error.startDate} />}
+        {data?.error?.startDate && (
+          <ErrorMessage message={data?.error.startDate} />
+        )}
       </p>
       <p>
         <Label>End Date</Label>
@@ -129,19 +166,75 @@ const MarathonForm = ({ onClose }: { onClose: () => void }) => {
           }}
         />
 
+        {marathon?.endDate && (
+          <p className="text-sm text-muted-foreground">
+            End Date - {new Date(marathon?.endDate).toLocaleString()}
+          </p>
+        )}
+
         <input type="hidden" name="endDate" value={endDate?.toUTCString()} />
 
-        {data?.error && <ErrorMessage message={"Select a date of marathon"} />}
+        {data?.error?.endDate && (
+          <ErrorMessage message={"Select a date of marathon"} />
+        )}
       </p>
       <p>
         <Label>Image</Label>
         <Input type="file" name="imagePath" />
+
+        {/* default image */}
+        {marathon?.imagePath && (
+          <div className="relative min-w-30 w-30 h-20 mt-2 rounded-lg overflow-hidden">
+            <Image
+              fill
+              objectFit="cover"
+              src={marathon?.imagePath ?? ""}
+              alt={marathon?.imagePath ?? ""}
+            />
+          </div>
+        )}
+
         {data?.error && <ErrorMessage message={data?.error.imagePath} />}
       </p>
 
       <p>
         <Label>Rewards</Label>
 
+        {/* reward section */}
+        {marathon?.Rewards && (
+          <div className="flex items-center gap-3 flex-wrap">
+            {marathon?.Rewards.map((item) => (
+              <div
+                className={`border bg-muted w-fit px-4 rounded-lg text-sm text-muted-foreground flex items-center gap-1 ${
+                  deletedRewardList.includes(item.id) ? " line-through" : ""
+                }`}
+                key={item.id}
+              >
+                <span>{item.text}</span>
+                <button
+                  type="button"
+                  className={`hover:text-primary ${
+                    deletedRewardList.includes(item.id) ? "hidden" : ""
+                  }`}
+                  onClick={async () => {
+                    const response = await deleteReward(item.id);
+
+                    if (response.data) {
+                      toast.success(response.data.message);
+                      setDeletedRewardList((prev) => {
+                        return [...prev, item.id];
+                      });
+                    } else {
+                      toast.error(response.error?.message);
+                    }
+                  }}
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
         <MultiInput
           placeholder="Enter rewards using ; as separator"
           onValueChange={(value) => setRewards(value.join(";"))}

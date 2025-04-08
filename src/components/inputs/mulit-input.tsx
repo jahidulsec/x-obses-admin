@@ -6,12 +6,15 @@ import { cn } from "@/lib/utils";
 
 const MultiInput = ({
   className,
+  defaultValue,
   onValueChange,
   ...props
 }: React.ComponentProps<"input"> & {
   onValueChange: (value: string[]) => void;
 }) => {
-  const [inputValues, setInputValues] = React.useState<string[]>([]);
+  const [inputValues, setInputValues] = React.useState<string[]>(
+    defaultValue ? defaultValue.toString().split(";") : []
+  );
 
   return (
     <div className="flex flex-col gap-2">
