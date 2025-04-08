@@ -184,12 +184,12 @@ const MarathonForm = ({
 
         {/* default image */}
         {marathon?.imagePath && (
-          <div className="relative min-w-30 w-30 h-20 mt-2 rounded-lg overflow-hidden">
+          <div className="relative min-w-30 w-30 h-20 mt-2 rounded-lg overflow-hidden border">
             <Image
               fill
               objectFit="cover"
               src={marathon?.imagePath ?? ""}
-              alt={marathon?.imagePath ?? ""}
+              alt={marathon?.title ?? ""}
             />
           </div>
         )}

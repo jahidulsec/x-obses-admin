@@ -11,7 +11,9 @@ export default async function MarathonPage({
 }) {
   return (
     <>
-      <CardSection />
+      <Suspense>
+        <CardSection />
+      </Suspense>
       <Suspense fallback={<TableSkeleton />}>
         <TableSection searchParams={searchParams} />
       </Suspense>
