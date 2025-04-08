@@ -4,7 +4,7 @@ import { PagePagination } from "@/components/pagination/pagination";
 import { DataTable } from "@/components/table/data-table";
 import { TableWrapper } from "@/components/table/table";
 import { MutiResponseType } from "@/types/response";
-import React from "react";
+import React, { useTransition } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Dot, Edit, ListStart, MoreVertical, Trash } from "lucide-react";
@@ -27,13 +27,27 @@ import {
 import { MarathonForm } from "./form";
 import { DEFAULT_PAGE_SIZE } from "@/lib/data";
 import { Marathon } from "@/types/marathon";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogCancel,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogFooter,
+  AlertDialogDescription,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
+import { deleteMarathon } from "../server/marathons";
+import { toast } from "sonner";
 
 export default function MarathonTable({
   response,
 }: {
-  response: MutiResponseType<Marathon>;
+  response: MutiResponseType<Marathon>["data"];
 }) {
   const [edit, setEdit] = React.useState<any>(false);
+  const [delMarathon, setDelMarathon] = React.useState<any>(false);
+  const [isPending, startTransition] = useTransition();
 
   const columns: ColumnDef<Marathon>[] = [
     {
@@ -124,7 +138,10 @@ export default function MarathonTable({
                     <ListStart /> Leaderboard
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="text-destructive">
+                  <DropdownMenuItem
+                    className="text-destructive"
+                    onClick={() => setDelMarathon(marathon.id)}
+                  >
                     <Trash /> Delete
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -140,16 +157,15 @@ export default function MarathonTable({
     <>
       <TableWrapper>
         {/* table */}
-        <DataTable
-          columns={columns}
-          data={response.data ? response.data?.data : []}
-        />
+        <DataTable columns={columns} data={response?.data || []} />
       </TableWrapper>
 
       <PagePagination
-        count={response.data ? response.data.pagination.total_items : 0}
+        count={response?.data != null ? response.pagination.total_items : 0}
         limit={
-          response.data ? response.data.pagination.per_page : DEFAULT_PAGE_SIZE
+          response?.data != null
+            ? response.pagination.per_page
+            : DEFAULT_PAGE_SIZE
         }
       />
 
@@ -166,6 +182,44 @@ export default function MarathonTable({
           </div>
         </SheetContent>
       </Sheet>
+
+      {/* delete table modal */}
+      <AlertDialog open={!!delMarathon} onOpenChange={setDelMarathon}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-bold">
+              Are you absolutely sure?
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete this
+              <b> route</b> and remove data from servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              disabled={isPending}
+              onClick={() => {
+                startTransition(async () => {
+                  const response = deleteMarathon(delMarathon);
+                  toast.promise(response, {
+                    loading: "Loading...",
+                    success: (data) => {
+                      if (!data.data) throw data.error;
+                      return data.data?.message;
+                    },
+                    error: (data) => {
+                      return data.error;
+                    },
+                  });
+                });
+              }}
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }

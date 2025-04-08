@@ -217,16 +217,24 @@ const MarathonForm = ({
                     deletedRewardList.includes(item.id) ? "hidden" : ""
                   }`}
                   onClick={async () => {
-                    const response = await deleteReward(item.id);
+                    const response = deleteReward(item.id);
 
-                    if (response.data) {
-                      toast.success(response.data.message);
-                      setDeletedRewardList((prev) => {
-                        return [...prev, item.id];
-                      });
-                    } else {
-                      toast.error(response.error?.message);
-                    }
+                    toast.promise(response, {
+                      loading: "Loading...",
+                      success: (data) => {
+                        if (!data.data) throw data.error;
+
+                        // add to deleted list of reward
+                        setDeletedRewardList((prev) => {
+                          return [...prev, item.id];
+                        });
+
+                        return data.data?.message;
+                      },
+                      error: (data) => {
+                        return data.error;
+                      },
+                    });
                   }}
                 >
                   <X size={16} />

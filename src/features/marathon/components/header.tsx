@@ -16,7 +16,6 @@ import { Plus } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { MarathonForm } from "./form";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function HeaderSection() {
   const [open, setOpen] = useState(false);

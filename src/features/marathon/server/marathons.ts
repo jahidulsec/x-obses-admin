@@ -72,6 +72,33 @@ export const getMarathonStats = async (): Promise<
   }
 };
 
+export const deleteMarathon = async (
+  id: string
+): Promise<SingleResponseType<Marathon>> => {
+  try {
+    const response = await fetchWithAuth(`/api/marathon/v1/marathon/${id}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+
+    if (!response.ok) throw data;
+
+    revalidateTag("marathon");
+    revalidateTag("marathon-stats");
+
+    return {
+      data: data,
+      error: null,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      data: null,
+      error: error as APIError,
+    };
+  }
+};
+
 export const deleteReward = async (
   id: string
 ): Promise<SingleResponseType<Marathon>> => {

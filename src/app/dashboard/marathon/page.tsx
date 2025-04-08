@@ -1,3 +1,4 @@
+import { TableSkeleton } from "@/components/skeleton/table";
 import CardSection from "@/features/marathon/components/card";
 import TableSection from "@/features/marathon/components/table-section";
 import { SearchParams } from "@/types/search-params";
@@ -10,10 +11,8 @@ export default async function MarathonPage({
 }) {
   return (
     <>
-      <Suspense>
-        <CardSection />
-      </Suspense>
-      <Suspense>
+      <CardSection />
+      <Suspense fallback={<TableSkeleton />}>
         <TableSection searchParams={searchParams} />
       </Suspense>
     </>
