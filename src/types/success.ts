@@ -9,3 +9,9 @@ export interface SuccessMulti<T> {
     total_items: number;
   };
 }
+
+export interface SuccessSingle<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}

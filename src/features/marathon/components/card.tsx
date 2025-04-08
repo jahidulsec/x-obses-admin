@@ -1,13 +1,14 @@
 import React from "react";
-import { CardContainer, Card } from "@/components/cards/stats-card";
-import { marathonCards } from "@/lib/data";
+import { CardContainer } from "@/components/cards/stats-card";
+import { getMarathonStats } from "../server/marathons";
+import MarathonCardContainer from "./card-container";
 
-const CardSection = async() => {
+const CardSection = async () => {
+  const response = await getMarathonStats();
+
   return (
     <CardContainer>
-      {marathonCards.map((item) => (
-        <Card key={item.id} title={item.title} count={item.count} />
-      ))}
+      <MarathonCardContainer response={response} />
     </CardContainer>
   );
 };

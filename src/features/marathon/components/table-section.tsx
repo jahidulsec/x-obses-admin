@@ -12,12 +12,11 @@ export default async function TableSection({
 }: {
   searchParams: SearchParams;
 }) {
-  const { q, p } = await searchParams;
+  const params = await searchParams;
 
-  const page = Number(p) ?? 1;
   const limit = 20;
 
-  const marathons = await getMarathons();
+  const marathons = await getMarathons(params);
 
   return (
     <TableContainer>

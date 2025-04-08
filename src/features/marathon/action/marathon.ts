@@ -34,6 +34,7 @@ export const addMarathon = async (prevState: unknown, formData: FormData) => {
     }
 
     revalidateTag("marathon")
+    revalidateTag("marathon-stats")
 
     return {
       sucess: data.message,

@@ -10,7 +10,9 @@ export default async function MarathonPage({
 }) {
   return (
     <>
-      <CardSection />
+      <Suspense>
+        <CardSection />
+      </Suspense>
       <Suspense>
         <TableSection searchParams={searchParams} />
       </Suspense>

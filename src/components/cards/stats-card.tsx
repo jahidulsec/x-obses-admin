@@ -27,7 +27,7 @@ const Card = ({
   return (
     <article
       className={cn(
-        "flex-1 basis-[30%] bg-card border h-30 rounded-lg px-5 py-3 flex flex-col gap-3 hover:border-primary transition-colors duration-300 cursor-pointer",
+        "flex-1 basis-[30%] bg-card border h-30 rounded-lg px-5 py-3 flex flex-col gap-3 hover:border-primary transition-colors duration-300 cursor-pointer data-[state=true]:border-primary",
         className
       )}
       {...props}
