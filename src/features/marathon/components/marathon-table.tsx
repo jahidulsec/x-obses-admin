@@ -40,6 +40,7 @@ import {
 import { deleteMarathon } from "../server/marathons";
 import { toast } from "sonner";
 import Link from "next/link";
+import MarathonTypeBadge from "./badge";
 
 export default function MarathonTable({
   response,
@@ -71,17 +72,7 @@ export default function MarathonTable({
       accessorKey: "type",
       header: "Type",
       cell: ({ row }) => (
-        <Badge
-          variant={"outline"}
-          className={"pl-0 py-0 text-accent-foreground/95"}
-        >
-          <Dot
-            className={
-              row.original.type === "virtual" ? "text-primary" : "text-blue-500"
-            }
-          />
-          {row.original.type}
-        </Badge>
+        <MarathonTypeBadge type={row.original.type} />
       ),
     },
     {

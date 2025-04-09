@@ -43,7 +43,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <Table className="[&_th]:text-nowrap">
+    <Table className="[&_th]:text-nowrap [&_td]:text-nowrap">
       <TableHeader className="bg-muted/60">
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>

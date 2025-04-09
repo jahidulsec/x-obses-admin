@@ -10,8 +10,8 @@ export interface SuccessMulti<T> {
   };
 }
 
-export interface SuccessSingle<T> {
+export interface SuccessSingle<TData> {
   success: boolean;
   message: string;
-  data: T;
+  data: TData;
 }
