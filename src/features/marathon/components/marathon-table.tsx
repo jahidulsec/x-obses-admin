@@ -123,13 +123,16 @@ export default function MarathonTable({
                   <DropdownMenuItem onClick={() => setEdit(marathon)}>
                     <Edit /> Edit
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      href={`/dashboard/marathon/${marathon.id}/leaderboard`}
-                    >
-                      <ListStart /> Leaderboard
-                    </Link>
-                  </DropdownMenuItem>
+                  {marathon.type === "virtual" && (
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={`/dashboard/marathon/${marathon.id}/leaderboard`}
+                      >
+                        <ListStart /> Leaderboard
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="text-destructive"

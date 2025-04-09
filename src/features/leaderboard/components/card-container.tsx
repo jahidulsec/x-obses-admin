@@ -5,6 +5,7 @@ import { MarathonUser } from "@/types/leaderboard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { timeConversion } from "@/lib/formatters";
+import { UserImage } from "./image";
 
 export default function LeaderboardCardContainer({
   data,
@@ -24,18 +25,7 @@ export default function LeaderboardCardContainer({
               {/* image and namge */}
               <div className="flex items-center gap-2">
                 {/* image */}
-                <div className="relative w-8 h-8 rounded-full border border-primary overflow-hidden">
-                  <Image
-                    fill
-                    objectFit="cover"
-                    src={
-                      item?.user.imagePath !== null
-                        ? item?.user.imagePath
-                        : "/images/user.png"
-                    }
-                    alt={item.userId}
-                  />
-                </div>
+                <UserImage imagePath={item.user.imagePath} />
                 {/* name */}
                 <h4 className="text-muted-foreground font-semibold">
                   {item.user.fullName}

@@ -49,14 +49,16 @@ export const getMarathon = async (
 };
 
 export const getMarathonUsers = async (
+  id: string,
   params?: any
 ): Promise<MutiResponseType<MarathonUser>> => {
   try {
     // get searchparams
-    const searchParams = new URLSearchParams(params ?? "").toString();
+    const searchParams = new URLSearchParams(params ?? "")
+    searchParams.append('marathonId', id)
 
     const response = await fetchWithAuth(
-      `/api/marathon/v1/user/?${searchParams}`,
+      `/api/marathon/v1/user/?${searchParams.toString()}`,
       {
         next: {
           tags: ["marathon"],

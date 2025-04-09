@@ -6,7 +6,6 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
 import {
   Table,
   TableBody,
@@ -15,7 +14,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "@/lib/data";
 
@@ -49,7 +47,7 @@ export function DataTable<TData, TValue>({
           <TableRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
               return (
-                <TableHead key={header.id} style={{width: header.getSize()}}>
+                <TableHead key={header.id} style={{ width: header.getSize() }}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(

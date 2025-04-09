@@ -20,10 +20,10 @@ export default async function LeaderboardPage({
         <Header id={id as string} />
       </Suspense>
       <Suspense>
-        <CardSection />
+        <CardSection id={id as string} />
       </Suspense>
       <Suspense fallback={<TableSkeleton />}>
-        <TableSection searchParams={searchParams} />
+        <TableSection id={id as string} searchParams={searchParams} />
       </Suspense>
     </>
   );

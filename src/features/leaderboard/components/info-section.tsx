@@ -27,22 +27,27 @@ export default function InfoSection({
       {/* status */}
       <div className="my-2 flex items-center gap-2">
         {/* image container */}
-        <div className="flex items-center ml-2">
-          {data?.particiants.map((item) => (
-            <div
-              className="relative w-6 h-6 rounded-full overflow-hidden border -ml-2"
-              key={item.id}
-            >
-              <Image
-                fill
-                objectFit="cover"
-                src={item.imagePath ?? ""}
-                alt={item.fullName}
-              />
-            </div>
-          ))}
-        </div>
-        <p className="text-sm font-semibold">{data?.totalParticiants} Participants</p>
+        {data?.particiants && data.particiants.length > 0 && (
+          <div className="flex items-center ml-2">
+            {data?.particiants.map((item) => (
+              <div
+                className="relative w-6 h-6 rounded-full overflow-hidden border -ml-2"
+                key={item.id}
+              >
+                <Image
+                  fill
+                  objectFit="cover"
+                  src={item.imagePath ?? ""}
+                  alt={item.fullName}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        <p className="text- font-semibold">
+          {data?.totalParticiants} Participants
+        </p>
       </div>
     </section>
   );

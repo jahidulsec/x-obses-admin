@@ -5,12 +5,14 @@ import { getMarathonUsers } from "../server/leaderboard";
 import LeaderboardTable from "./leaderboard-table";
 
 export default async function TableSection({
+  id,
   searchParams,
 }: {
+  id: string;
   searchParams: SearchParams;
 }) {
   const params = await searchParams;
-  const response = await getMarathonUsers(params);
+  const response = await getMarathonUsers(id, params);
 
   return (
     <TableContainer>
