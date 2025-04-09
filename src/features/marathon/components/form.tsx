@@ -23,6 +23,7 @@ import { Marathon } from "@/types/marathon";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { deleteReward } from "../server/marathons";
+import RewardSection from "./reward-section";
 
 const MarathonForm = ({
   onClose,
@@ -134,7 +135,13 @@ const MarathonForm = ({
           placeholder="Type your marathon start date here."
           onChange={(e) => {
             if (e.target.value) {
-              setStartDate(new Date(e.target.value));
+              const input = new Date(e.target.value);
+
+              // check with start date
+              if (endDate && input > endDate) {
+                toast.warning("Start date must less than end date");
+              }
+              setStartDate(input);
             }
           }}
         />
@@ -161,7 +168,14 @@ const MarathonForm = ({
           placeholder="Type your marathon location here."
           onChange={(e) => {
             if (e.target.value) {
-              setEndDate(new Date(e.target.value));
+              const input = new Date(e.target.value);
+
+              // check with start date
+              if (startDate && input < startDate) {
+                toast.warning("End date must getter than start date");
+              }
+
+              setEndDate(input);
             }
           }}
         />
@@ -184,7 +198,7 @@ const MarathonForm = ({
 
         {/* default image */}
         {marathon?.imagePath && (
-          <div className="relative min-w-30 w-30 h-20 mt-2 rounded-lg overflow-hidden border">
+          <div className="relative max-w-[14rem] w-full h-20 mt-2 rounded-lg overflow-hidden border">
             <Image
               fill
               objectFit="cover"
@@ -202,46 +216,30 @@ const MarathonForm = ({
 
         {/* reward section */}
         {marathon?.Rewards && (
-          <div className="flex items-center gap-3 flex-wrap">
-            {marathon?.Rewards.map((item) => (
-              <div
-                className={`border bg-muted w-fit px-4 rounded-lg text-sm text-muted-foreground flex items-center gap-1 ${
-                  deletedRewardList.includes(item.id) ? " line-through" : ""
-                }`}
-                key={item.id}
-              >
-                <span>{item.text}</span>
-                <button
-                  type="button"
-                  className={`hover:text-primary ${
-                    deletedRewardList.includes(item.id) ? "hidden" : ""
-                  }`}
-                  onClick={async () => {
-                    const response = deleteReward(item.id);
+          <RewardSection
+            marathon={marathon}
+            deletedRewardList={deletedRewardList}
+            onDelete={async (id) => {
+              const response = deleteReward(id);
 
-                    toast.promise(response, {
-                      loading: "Loading...",
-                      success: (data) => {
-                        if (!data.data) throw data.error;
+              toast.promise(response, {
+                loading: "Loading...",
+                success: (data) => {
+                  if (!data.data) throw data.error;
 
-                        // add to deleted list of reward
-                        setDeletedRewardList((prev) => {
-                          return [...prev, item.id];
-                        });
+                  // add to deleted list of reward
+                  setDeletedRewardList((prev) => {
+                    return [...prev, id];
+                  });
 
-                        return data.data?.message;
-                      },
-                      error: (data) => {
-                        return data.error;
-                      },
-                    });
-                  }}
-                >
-                  <X size={16} />
-                </button>
-              </div>
-            ))}
-          </div>
+                  return data.data?.message;
+                },
+                error: (data) => {
+                  return data.error;
+                },
+              });
+            }}
+          />
         )}
         <MultiInput
           placeholder="Enter rewards using , as separator"
