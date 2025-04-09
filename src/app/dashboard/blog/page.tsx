@@ -1,7 +1,18 @@
-import React from 'react'
+import { TableSkeleton } from "@/components/skeleton/table";
+import TableSection from "@/features/blog/components/table-section";
+import { SearchParams } from "@/types/search-params";
+import React, { Suspense } from "react";
 
-export default function BlogPage() {
+export default function BlogPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   return (
-    <div>BlogPage</div>
-  )
+    <>
+      <Suspense fallback={<TableSkeleton />}>
+        <TableSection searchParams={searchParams} />
+      </Suspense>
+    </>
+  );
 }

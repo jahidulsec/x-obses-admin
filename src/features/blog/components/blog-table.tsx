@@ -23,9 +23,7 @@ import {
   SheetTitle,
   Sheet,
 } from "@/components/ui/sheet";
-import { MarathonForm } from "./form";
 import { DEFAULT_PAGE_SIZE } from "@/lib/data";
-import { Marathon } from "@/types/marathon";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -36,21 +34,18 @@ import {
   AlertDialogDescription,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-import { deleteMarathon } from "../server/marathons";
-import { toast } from "sonner";
-import Link from "next/link";
-import MarathonTypeBadge from "./badge";
+import { Blog } from "@/types/blog";
 
-export default function MarathonTable({
+export default function BlogTable({
   response,
 }: {
-  response: MutiResponseType<Marathon>["data"];
+  response: MutiResponseType<Blog>["data"];
 }) {
   const [edit, setEdit] = React.useState<any>(false);
   const [delMarathon, setDelMarathon] = React.useState<any>(false);
   const [isPending, startTransition] = useTransition();
 
-  const columns: ColumnDef<Marathon>[] = [
+  const columns: ColumnDef<Blog>[] = [
     {
       header: "#",
       cell: ({ row, table }) => {
@@ -62,37 +57,20 @@ export default function MarathonTable({
           </span>
         );
       },
+      size: 20,
     },
     {
       accessorKey: "title",
       header: "Title",
     },
-    {
-      accessorKey: "type",
-      header: "Type",
-      cell: ({ row }) => <MarathonTypeBadge type={row.original.type} />,
-    },
-    {
-      accessorKey: "distanceKm",
-      header: "Distance (KM)",
-    },
-    {
-      accessorKey: "startDate",
-      header: "Start From",
-      cell: ({ row }) => {
-        const marathon = row.original;
 
-        return <span>{formatDateTime(new Date(marathon.startDate))}</span>;
-      },
+    {
+      accessorKey: "readTime",
+      header: "Read time (min)",
     },
     {
-      accessorKey: "endDate",
-      header: "End At",
-      cell: ({ row }) => {
-        const marathon = row.original;
-
-        return <span>{formatDateTime(new Date(marathon.endDate))}</span>;
-      },
+      accessorKey: "createdBy",
+      header: "Created by",
     },
     {
       accessorKey: "createdAt",
@@ -123,15 +101,6 @@ export default function MarathonTable({
                   <DropdownMenuItem onClick={() => setEdit(marathon)}>
                     <Edit /> Edit
                   </DropdownMenuItem>
-                  {marathon.type === "virtual" && (
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href={`/dashboard/marathon/${marathon.id}/leaderboard`}
-                      >
-                        <ListStart /> Leaderboard
-                      </Link>
-                    </DropdownMenuItem>
-                  )}
 
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
@@ -174,7 +143,7 @@ export default function MarathonTable({
 
           {/* form */}
           <div className="mt-5">
-            <MarathonForm marathon={edit} onClose={() => setEdit(false)} />
+            {/* <MarathonForm marathon={edit} onClose={() => setEdit(false)} /> */}
           </div>
         </SheetContent>
       </Sheet>
@@ -196,19 +165,19 @@ export default function MarathonTable({
             <AlertDialogAction
               disabled={isPending}
               onClick={() => {
-                startTransition(async () => {
-                  const response = deleteMarathon(delMarathon);
-                  toast.promise(response, {
-                    loading: "Loading...",
-                    success: (data) => {
-                      if (!data.data) throw data.error;
-                      return data.data?.message;
-                    },
-                    error: (data) => {
-                      return data.error;
-                    },
-                  });
-                });
+                // startTransition(async () => {
+                //   const response = deleteMarathon(delMarathon);
+                //   toast.promise(response, {
+                //     loading: "Loading...",
+                //     success: (data) => {
+                //       if (!data.data) throw data.error;
+                //       return data.data?.message;
+                //     },
+                //     error: (data) => {
+                //       return data.error;
+                //     },
+                //   });
+                // });
               }}
             >
               Continue
