@@ -1,16 +1,16 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { Layers, PanelLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Logo } from "../logo/logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { Sheet, SheetContent } from "../ui/sheet";
 
 interface SidebarContextProps {
   open: boolean;
   onToggle: () => void;
-  onOpen: () => void;
+  onOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SIDEBAR_WIDTH = "16rem";
@@ -33,7 +33,7 @@ const SidebarProvider = ({
   style,
   ...props
 }: React.ComponentProps<"div">) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <SidebarContext.Provider
@@ -42,7 +42,7 @@ const SidebarProvider = ({
         onToggle: () => {
           setOpen(!open);
         },
-        onOpen: () => setOpen(true),
+        onOpen: setOpen,
       }}
     >
       <div
@@ -67,13 +67,25 @@ const Sidebar = ({
   className,
   ...props
 }: React.ComponentProps<"aside">) => {
-  const { open } = useSidebarContext();
+  const { open, onOpen } = useSidebarContext();
+  const isMobile = useIsMobile();
+
+  if (isMobile)
+    return (
+      <Sheet open={open} onOpenChange={onOpen}>
+        <SheetContent side={"left"} aria-describedby="X-obese">
+          <div className="min-h-svh h-full flex justify-between flex-col">
+            {children}
+          </div>
+        </SheetContent>
+      </Sheet>
+    );
 
   return (
     <aside
       data-state={open ? "expanded" : "collapsed"}
       className={cn(
-        `min-h-svh h-full sticky top-0 data-[state=expanded]:w-[var(--sidebar-width)] w-[var(--sidebar-width-icon)] transition-all duration-300 hidden pt-5 sm:flex flex-col justify-between ${
+        `min-h-svh h-full sticky top-0 data-[state=expanded]:w-[var(--sidebar-width)] w-[var(--sidebar-width-icon)] transition-all duration-300 hidden pt-5 md:flex flex-col justify-between ${
           !open ? "items-center" : ""
         }`,
         className
@@ -121,7 +133,9 @@ const SidebarMenuContainer = ({
   className,
   ...props
 }: React.ComponentProps<"section">) => {
-  return <section className={cn("flex flex-col gap-2 my-5", className)} {...props} />;
+  return (
+    <section className={cn("flex flex-col gap-1 my-5", className)} {...props} />
+  );
 };
 
 type ButtonPrpos = {
@@ -135,15 +149,14 @@ const SidebarMenu = ({
   button,
   ...props
 }: React.ComponentProps<"a"> & { button: ButtonPrpos }) => {
-
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <Link
       role="button"
       href={button?.url ?? ""}
       className={cn(
-        "flex items-center gap-2 border border-transparent hover:border-primary hover:bg-muted hover:text-muted-foreground rounded-lg p-2 mx-1.5 group transition-all duration-300",
+        "flex items-center gap-2 border border-transparent hover:border-primary hover:bg-muted hover:text-muted-foreground rounded-lg p-1 px-2 mx-1.5 group transition-all duration-300",
         button.url === pathname ? "bg-primary text-primary-foreground" : "",
         className
       )}
