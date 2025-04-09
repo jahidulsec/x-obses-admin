@@ -1,3 +1,5 @@
+import {format} from 'date-fns';
+
 const NUMBER_FORMATTER = new Intl.NumberFormat("en-IN", {
     maximumFractionDigits: 2,
   });
@@ -14,4 +16,9 @@ const NUMBER_FORMATTER = new Intl.NumberFormat("en-IN", {
     if (date == null) return `-`;
     return DATE_FORMATTER.format(date);
   };
+
+  export const formatDateTime = (date: Date) => {
+    if (date == null) return `-`;
+    return format(date, 'LLL dd, yyyy - hh:mm aaa')
+  }
   

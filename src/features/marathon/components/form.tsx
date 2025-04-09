@@ -244,8 +244,8 @@ const MarathonForm = ({
           </div>
         )}
         <MultiInput
-          placeholder="Enter rewards using ; as separator"
-          onValueChange={(value) => setRewards(value.join(";"))}
+          placeholder="Enter rewards using , as separator"
+          onValueChange={(value) => setRewards(value.join(","))}
         />
         <input type="hidden" name="reward" value={rewards} />
         {data?.error && <ErrorMessage message={data?.error.reward} />}

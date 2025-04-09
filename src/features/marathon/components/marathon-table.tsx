@@ -8,7 +8,7 @@ import React, { useTransition } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Dot, Edit, ListStart, MoreVertical, Trash } from "lucide-react";
-import { formatDate } from "@/lib/formatters";
+import { formatDate, formatDateTime } from "@/lib/formatters";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -93,7 +93,7 @@ export default function MarathonTable({
       cell: ({ row }) => {
         const marathon = row.original;
 
-        return <span>{formatDate(new Date(marathon.startDate))}</span>;
+        return <span>{formatDateTime(new Date(marathon.startDate))}</span>;
       },
     },
     {
@@ -102,7 +102,7 @@ export default function MarathonTable({
       cell: ({ row }) => {
         const marathon = row.original;
 
-        return <span>{formatDate(new Date(marathon.endDate))}</span>;
+        return <span>{formatDateTime(new Date(marathon.endDate))}</span>;
       },
     },
     {
@@ -192,7 +192,7 @@ export default function MarathonTable({
             </AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete this
-              <b> route</b> and remove data from servers.
+              <b> marathon</b> and remove data from servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

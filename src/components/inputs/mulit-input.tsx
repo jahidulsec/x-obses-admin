@@ -19,7 +19,7 @@ const MultiInput = ({
   return (
     <div className="flex flex-col gap-2">
       {/* show list */}
-      <div className="flex items-center gap-3 flex-wrap">
+      <div className="flex items-center gap-1 flex-wrap">
         {inputValues.map((item) => (
           <div
             className="border bg-muted w-fit px-4 rounded-lg text-sm text-muted-foreground"
@@ -35,8 +35,8 @@ const MultiInput = ({
         {...props}
         className={cn("", className)}
         onChange={(e) => {
-          setInputValues(e.target.value.split(";"));
-          onValueChange(e.target.value.split(";"));
+          setInputValues(e.target.value.split(","));
+          onValueChange(e.target.value.split(","));
         }}
       />
     </div>
