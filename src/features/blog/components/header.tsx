@@ -15,6 +15,7 @@ import { navList } from "@/lib/data";
 import { Plus } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
+import { BlogForm } from "./form";
 
 export default function HeaderSection() {
   const [open, setOpen] = useState(false);
@@ -48,7 +49,7 @@ export default function HeaderSection() {
 
           {/* form */}
           <div className="mt-5">
-            {/* <MarathonForm onClose={() => setOpen(false)} /> */}
+            <BlogForm onClose={() => setOpen(false)} />
           </div>
         </SheetContent>
       </Sheet>
