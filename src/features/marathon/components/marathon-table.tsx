@@ -6,8 +6,7 @@ import { TableWrapper } from "@/components/table/table";
 import { MutiResponseType } from "@/types/response";
 import React, { useTransition } from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
-import { Dot, Edit, ListStart, MoreVertical, Trash } from "lucide-react";
+import { Edit, ListStart, MoreVertical, Trash } from "lucide-react";
 import { formatDate, formatDateTime } from "@/lib/formatters";
 import {
   DropdownMenu,
@@ -71,9 +70,7 @@ export default function MarathonTable({
     {
       accessorKey: "type",
       header: "Type",
-      cell: ({ row }) => (
-        <MarathonTypeBadge type={row.original.type} />
-      ),
+      cell: ({ row }) => <MarathonTypeBadge type={row.original.type} />,
     },
     {
       accessorKey: "distanceKm",
@@ -127,7 +124,9 @@ export default function MarathonTable({
                     <Edit /> Edit
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href={`/dashboard/marathon/${marathon.id}/leaderboard`}>
+                    <Link
+                      href={`/dashboard/marathon/${marathon.id}/leaderboard`}
+                    >
                       <ListStart /> Leaderboard
                     </Link>
                   </DropdownMenuItem>

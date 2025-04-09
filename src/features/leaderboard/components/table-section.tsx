@@ -1,9 +1,8 @@
-import React from "react";
-import HeaderSection from "./header";
 import { TableContainer } from "@/components/table/table";
-import { getMarathons } from "../server/marathons";
 import { SearchParams } from "@/types/search-params";
-import MarathonTable from "./marathon-table";
+import React from "react";
+import { getMarathonUsers } from "../server/leaderboard";
+import LeaderboardTable from "./leaderboard-table";
 
 export default async function TableSection({
   searchParams,
@@ -11,13 +10,11 @@ export default async function TableSection({
   searchParams: SearchParams;
 }) {
   const params = await searchParams;
-
-  const response = await getMarathons(params);
+  const response = await getMarathonUsers(params);
 
   return (
     <TableContainer>
-      <HeaderSection />
-      <MarathonTable response={response.data} />
+      <LeaderboardTable response={response.data} />
     </TableContainer>
   );
 }

@@ -56,10 +56,10 @@ export default function LeaderboardCardContainer({
             <div
               className={`text-xl font-bold rounded-full w-16 h-16 flex justify-center items-center ${
                 index === 0
-                  ? "bg-amber-400"
+                  ? "bg-amber-100"
                   : index === 1
-                  ? "bg-stone-300"
-                  : "bg-orange-700 text-background"
+                  ? "bg-gray-100"
+                  : "bg-red-100"
               }`}
             >
               <p>{index + 1}</p>
