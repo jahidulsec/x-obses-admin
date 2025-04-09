@@ -6,9 +6,9 @@ export async function createSession(token: string) {
 
   await cookies().set("refreshToken", token, {
     httpOnly: true,
-    secure: false,
+    secure: process.env.COOKIE_SECURE === "1",
     expires: expiresAt,
-    sameSite: "lax",
+    sameSite: process.env.COOKIE_SECURE === "1" ? "none" : "lax",
     path: "/",
   });
 }

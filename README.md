@@ -5,25 +5,11 @@
 First create `.env` file with following variables
 
 ```
-DATABASE_URL="YOUR_DB_URL"
-SESSION_SECRET=GENERATE_CODE_AND_ADD
-NEXT_PUBLIC_GOOGLE_MAP_API=ADD_GOOGLE_MAP_API_KEY
-SMS_USERNAME="MOBIREACH_USERNAME"
-SMS_PASSWORD="MOBIREACH_PASWORD"
+NEXT_PUBLIC_API_URL=<API_URL>
+COOKIE_SECURE=< 0 | 1>
 ```
 
-To generate `SESSION_SECRET` key,
-
-```bash
-openssl rand -base64 32
-```
-
-To initiailize this project, 
-
-```bash
-npm install
-npx prisma generate
-```
+For production level use with secure ssl, set `COOKIE_SECURE = 1`
 
 ## Getting Started
 
@@ -33,4 +19,4 @@ First, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:6057](http://localhost:6057) with your browser to see the result.
