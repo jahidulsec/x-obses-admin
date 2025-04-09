@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { useSidebarContext } from "./sidebar";
 import { usePathname } from "next/navigation";
 import { navList } from "@/lib/data";
+import { Breadcrump } from "../breadcrump/breadcrump";
 
 const AppNavbar = () => {
   const { onToggle } = useSidebarContext();
@@ -26,9 +27,10 @@ const AppNavbar = () => {
 
       <Separator orientation="vertical" className="h-5" />
 
-      <h2 className="font-semibold">
+      {/* <h2 className="font-semibold">
         {navList.filter((item) => item.url === pathname)?.[0]?.title ?? "Dashboard"}
-      </h2>
+      </h2> */}
+      <Breadcrump />
     </nav>
   );
 };

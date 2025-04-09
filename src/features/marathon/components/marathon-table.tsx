@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { deleteMarathon } from "../server/marathons";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function MarathonTable({
   response,
@@ -134,8 +135,10 @@ export default function MarathonTable({
                   <DropdownMenuItem onClick={() => setEdit(marathon)}>
                     <Edit /> Edit
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <ListStart /> Leaderboard
+                  <DropdownMenuItem asChild>
+                    <Link href={`/dashboard/marathon/${marathon.id}/leaderboard`}>
+                      <ListStart /> Leaderboard
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
