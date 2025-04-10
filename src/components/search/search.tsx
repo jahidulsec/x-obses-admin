@@ -36,31 +36,28 @@ function Search({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="relative min-w-[8rem] flex-1 sm:flex-none"
-    >
+    <form onSubmit={handleSubmit} className="relative shrink max-w-[8rem] sm:max-w-xl md:min-w-[8rem]">
       <Input
         type={type}
         name="search"
         id="search"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="pl-8 pr-12 w-full"
+        className="pl-8 pr-12 w-full text-sm"
         placeholder={placeholder}
       />
       <Label
         htmlFor="search"
-        className="absolute top-[50%] -translate-y-[50%] left-3 text-gray-400"
+        className="absolute top-[50%] -translate-y-[50%] left-3 text-muted-foreground/50"
       >
-        <SearchIcon className="size-4" />
+        <SearchIcon size={16} />
       </Label>
       <Button
         type="submit"
         size={"icon"}
         className="absolute right-0 top-0 rounded-l-none"
       >
-        <SearchIcon className="size-4" />
+        <SearchIcon size={16} />
       </Button>
     </form>
   );
