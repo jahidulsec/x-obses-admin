@@ -44,7 +44,7 @@ const BlogForm = ({ onClose, blog }: { onClose: () => void; blog?: Blog }) => {
           type="number"
           placeholder="Type your description here."
           name="readTime"
-          defaultValue={blog?.description}
+          defaultValue={blog?.readTime}
         />
         {data?.error && <ErrorMessage message={data.error.readTime} />}
       </p>
@@ -55,6 +55,7 @@ const BlogForm = ({ onClose, blog }: { onClose: () => void; blog?: Blog }) => {
           placeholder="Type your description here."
           name="description"
           defaultValue={blog?.description}
+          rows={5}
         />
         {data?.error && <ErrorMessage message={data.error.description} />}
       </p>
@@ -64,6 +65,7 @@ const BlogForm = ({ onClose, blog }: { onClose: () => void; blog?: Blog }) => {
           placeholder="Type your details here."
           name="details"
           defaultValue={blog?.details}
+          rows={10}          
         />
         {data?.error && <ErrorMessage message={data.error.details} />}
       </p>

@@ -8,4 +8,7 @@ export type Blog = {
   imagePath: string;
   createdAt: string;
   updatedAt: string;
+  admin?: {
+    name: string
+  }
 };

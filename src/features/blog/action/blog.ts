@@ -19,14 +19,9 @@ export const addBlog = async (prevState: unknown, formData: FormData) => {
     const response = await fetchWithAuth(`/api/other/v1/blog`, {
       method: "POST",
       body: formData,
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
     });
 
     const data = await response.json();
-
-    console.log(data);
 
     // if not ok, throw error
     if (!response.ok) {
@@ -66,6 +61,8 @@ export const updateBlog = async (
   try {
     // modify form data
     const modifiedFrmData = Object.fromEntries(formData.entries());
+
+    console.log(modifiedFrmData)
 
     // Create a cleaned version
     const cleanedFormData = new FormData();

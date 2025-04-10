@@ -35,6 +35,7 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Blog } from "@/types/blog";
+import { BlogForm } from "./form";
 
 export default function BlogTable({
   response,
@@ -69,8 +70,12 @@ export default function BlogTable({
       header: "Read time (min)",
     },
     {
-      accessorKey: "createdBy",
       header: "Created by",
+      cell: ({ row }) => {
+        const data = row.original;
+
+        return <span>{data.admin?.name}</span>;
+      },
     },
     {
       accessorKey: "createdAt",
@@ -138,12 +143,12 @@ export default function BlogTable({
       <Sheet open={!!edit} onOpenChange={setEdit}>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Edit marathon</SheetTitle>
+            <SheetTitle>Edit blog</SheetTitle>
           </SheetHeader>
 
           {/* form */}
           <div className="mt-5">
-            {/* <MarathonForm marathon={edit} onClose={() => setEdit(false)} /> */}
+            <BlogForm blog={edit} onClose={() => setEdit(false)} />
           </div>
         </SheetContent>
       </Sheet>
