@@ -36,6 +36,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Blog } from "@/types/blog";
 import { BlogForm } from "./form";
+import { deleteBlog } from "../server/blog";
+import { toast } from "sonner";
 
 export default function BlogTable({
   response,
@@ -43,7 +45,7 @@ export default function BlogTable({
   response: MutiResponseType<Blog>["data"];
 }) {
   const [edit, setEdit] = React.useState<any>(false);
-  const [delMarathon, setDelMarathon] = React.useState<any>(false);
+  const [delBlog, setDelBlog] = React.useState<any>(false);
   const [isPending, startTransition] = useTransition();
 
   const columns: ColumnDef<Blog>[] = [
@@ -88,8 +90,9 @@ export default function BlogTable({
     },
     {
       id: "actions",
+      size: 16,
       cell: ({ row }) => {
-        const marathon = row.original;
+        const Blog = row.original;
 
         return (
           <>
@@ -103,14 +106,14 @@ export default function BlogTable({
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                  <DropdownMenuItem onClick={() => setEdit(marathon)}>
+                  <DropdownMenuItem onClick={() => setEdit(Blog)}>
                     <Edit /> Edit
                   </DropdownMenuItem>
 
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="text-destructive"
-                    onClick={() => setDelMarathon(marathon.id)}
+                    onClick={() => setDelBlog(Blog.id)}
                   >
                     <Trash /> Delete
                   </DropdownMenuItem>
@@ -154,7 +157,7 @@ export default function BlogTable({
       </Sheet>
 
       {/* delete table modal */}
-      <AlertDialog open={!!delMarathon} onOpenChange={setDelMarathon}>
+      <AlertDialog open={!!delBlog} onOpenChange={setDelBlog}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="font-bold">
@@ -170,19 +173,19 @@ export default function BlogTable({
             <AlertDialogAction
               disabled={isPending}
               onClick={() => {
-                // startTransition(async () => {
-                //   const response = deleteMarathon(delMarathon);
-                //   toast.promise(response, {
-                //     loading: "Loading...",
-                //     success: (data) => {
-                //       if (!data.data) throw data.error;
-                //       return data.data?.message;
-                //     },
-                //     error: (data) => {
-                //       return data.error;
-                //     },
-                //   });
-                // });
+                startTransition(async () => {
+                  const response = deleteBlog(delBlog);
+                  toast.promise(response, {
+                    loading: "Loading...",
+                    success: (data) => {
+                      if (!data.data) throw data.error;
+                      return data.data?.message;
+                    },
+                    error: (data) => {
+                      return data.error;
+                    },
+                  });
+                });
               }}
             >
               Continue
