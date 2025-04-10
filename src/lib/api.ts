@@ -8,7 +8,7 @@ let accessToken = "";
 const fetchRefreshToken = async () => {
   try {
     // get refresh token
-    const refreshToken = await cookies().get("refreshToken")?.value;
+    const refreshToken = cookies().get("refreshToken")?.value;
 
     const response = await fetch(`${API_BASE_URL}/api/auth/v1/token/admin`, {
       method: "POST",
@@ -25,7 +25,7 @@ const fetchRefreshToken = async () => {
     return data.data.accessToken;
   } catch (error) {
     console.log((error as any).message);
-    await cookies().delete("refreshToken");
+    cookies().delete("refreshToken");
     return null;
   }
 };

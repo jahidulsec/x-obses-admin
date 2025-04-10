@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { Separator } from "../ui/separator";
 import { PanelLeft } from "lucide-react";
 import { Button } from "../ui/button";
@@ -30,7 +30,9 @@ const AppNavbar = () => {
       </nav>
 
       {/* search section */}
-      <SearchForm />
+      <Suspense>
+        <SearchForm />
+      </Suspense>
     </header>
   );
 };

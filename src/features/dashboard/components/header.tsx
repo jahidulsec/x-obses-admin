@@ -8,7 +8,11 @@ export default function HeaderSection({
 }: {
   data: SingleResponseType<Admin>["data"];
 }) {
-  return <section>
-    <PageHeading>Welcome, <strong>{data?.data.name}</strong></PageHeading>
-  </section>;
+  return (
+    <section>
+      <PageHeading>
+        Welcome, <strong>{data?.data.name}</strong>
+      </PageHeading>
+    </section>
+  );
 }
