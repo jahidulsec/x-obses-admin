@@ -1,4 +1,4 @@
-import { NotepadText, Route } from "lucide-react";
+import { Bolt, LogOut, NotepadText, Route } from "lucide-react";
 
 export const navList = [
   {

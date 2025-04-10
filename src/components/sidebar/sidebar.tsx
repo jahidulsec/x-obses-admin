@@ -126,7 +126,7 @@ const SidebarBottomSection = ({
   className,
   ...props
 }: React.ComponentProps<"section">) => {
-  return <section className={cn("mb-2", className)} {...props} />;
+  return <section className={cn("mb-2 flex flex-col gap-1", className)} {...props} />;
 };
 
 const SidebarMenuContainer = ({

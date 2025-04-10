@@ -20,14 +20,14 @@ import { BlogForm } from "./form";
 export default function HeaderSection() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const marathon = navList.filter((item) => item.url === pathname)?.[0];
+  const blog = navList.filter((item) => item.url === pathname)?.[0];
 
   return (
     <>
       <TableHeaderSection>
         <TableHeaderSectionTitle>
-          <marathon.icon />
-          {marathon?.title ?? "Dashboard"}
+          <blog.icon />
+          {blog?.title ?? "Dashboard"}
         </TableHeaderSectionTitle>
         <Button
           variant={"outline"}

@@ -1,12 +1,10 @@
-import { Activity } from "lucide-react";
+import { SquareActivity } from "lucide-react";
 import React from "react";
 
-const Logo = ({
-    size=24
-}: {size?:number}) => {
+const Logo = ({ size = 24 }: { size?: number }) => {
   return (
     <div className="text-primary">
-      <Activity size={size} />
+      <SquareActivity size={size} />
     </div>
   );
 };
