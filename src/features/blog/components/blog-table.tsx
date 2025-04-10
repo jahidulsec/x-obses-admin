@@ -165,7 +165,7 @@ export default function BlogTable({
             </AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete this
-              <b> marathon</b> and remove data from servers.
+              <b> blog</b> and remove data from servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
