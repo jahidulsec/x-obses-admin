@@ -10,11 +10,11 @@ const Form = ({ className, ...props }: React.ComponentProps<"form">) => {
   );
 };
 
-const FormSubmitButton = () => {
+const FormSubmitButton = ({className}: React.ComponentProps<'button'>) => {
     const { pending } = useFormStatus();
   
     return (
-      <Button type="submit" disabled={pending} className="font-semibold">
+      <Button type="submit" disabled={pending} className={cn("font-semibold", className)}>
         {pending && (
           <Spinner
             borderBottomColor="border-b-background"

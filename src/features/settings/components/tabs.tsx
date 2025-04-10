@@ -1,15 +1,23 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { Admin } from "@/types/admin";
+import { SingleResponseType } from "@/types/response";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-export default function TabSection() {
+export default function TabSection({
+  admin,
+}: {
+  admin: SingleResponseType<Admin>["data"];
+}) {
   return (
     <div className="flex items-center gap-5 mt-3 bg-muted/35 p-2 pb-0 rounded-lg">
       <TabItem href="/dashboard/settings" title="Profile" />
-      <TabItem href="/dashboard/settings/admins" title="Admins" />
+      {admin?.data.role === "superadmin" && (
+        <TabItem href="/dashboard/settings/admins" title="Admins" />
+      )}
     </div>
   );
 }
@@ -20,8 +28,7 @@ const TabItem = ({
   className,
   ...props
 }: React.ComponentProps<"a">) => {
-
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <Link
