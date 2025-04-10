@@ -43,10 +43,8 @@ export const fetchWithAuth = async (url: string, init?: RequestInit) => {
     console.warn("Access token expired! Attempting to refresh...");
     const newAccessToken = await fetchRefreshToken();
 
-    console.log("a", newAccessToken);
-
     if (!newAccessToken) {
-      return Promise.reject("User not authenticated");
+      throw new Error("User not authenticated");
     }
 
     accessToken = newAccessToken;
