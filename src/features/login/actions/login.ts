@@ -1,7 +1,8 @@
 "use server";
 
-import { createSession } from "@/lib/session";
+import { createSession, deleteSession } from "@/lib/session";
 import { APIError } from "@/types/errors";
+import { revalidateTag } from "next/cache";
 
 export const login = async (prevState: unknown, formData: FormData) => {
   try {
@@ -30,6 +31,9 @@ export const login = async (prevState: unknown, formData: FormData) => {
     // create cookie session
     await createSession(data?.data?.refreshToken as string);
 
+    revalidateTag("admin");
+    revalidateTag("profile");
+
     return {
       sucess: data.message,
       error: null,
@@ -50,5 +54,20 @@ export const login = async (prevState: unknown, formData: FormData) => {
       return { error: modifiedError };
     }
     return { toast: err.message };
+  }
+};
+
+export const logout = async () => {
+  try {
+    await deleteSession();
+    return {
+      success: "Your are successfully logged out",
+      error: null,
+    };
+  } catch (error) {
+    return {
+      success: "Your are successfully logged out",
+      error: (error as any).message,
+    };
   }
 };

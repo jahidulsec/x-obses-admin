@@ -1,7 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { Admin } from "@/types/admin";
 import { SingleResponseType } from "@/types/response";
@@ -17,6 +22,7 @@ export default function TabSection({
   admin: SingleResponseType<Admin>["data"];
 }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <div className="mt-3 bg-muted/35 p-2 pb-0 rounded-lg flex justify-between items-center gap-5">
@@ -28,17 +34,18 @@ export default function TabSection({
       </div>
 
       {/* add admin button */}
-      {admin?.data.role === "superadmin" && (
-        <Button
-          variant={"outline"}
-          size={"sm"}
-          className="hover:border-primary hover:bg-transparent mb-2"
-          onClick={() => setOpen(true)}
-        >
-          <Plus className="text-primary" />
-          <span className="hidden sm:block">Add Admin</span>
-        </Button>
-      )}
+      {admin?.data.role === "superadmin" &&
+        pathname === "/dashboard/settings/admins" && (
+          <Button
+            variant={"outline"}
+            size={"sm"}
+            className="hover:border-primary hover:bg-transparent mb-2"
+            onClick={() => setOpen(true)}
+          >
+            <Plus className="text-primary" />
+            <span className="hidden sm:block">Add Admin</span>
+          </Button>
+        )}
 
       {/* admin form modal */}
       <Sheet open={open} onOpenChange={setOpen}>

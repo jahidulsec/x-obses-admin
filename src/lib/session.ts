@@ -12,3 +12,7 @@ export async function createSession(token: string) {
     path: "/",
   });
 }
+
+export async function deleteSession() {
+  await cookies().delete("refreshToken");
+}

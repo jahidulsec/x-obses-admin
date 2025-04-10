@@ -68,7 +68,7 @@ const AdminForm = ({
         {data?.error && <ErrorMessage message={data.error.password} />}
       </div>
 
-      <div>
+      <p>
         <Label>Role</Label>
         <Select name="role" defaultValue={admin?.role}>
           <SelectTrigger className="w-[180px]">
@@ -83,7 +83,7 @@ const AdminForm = ({
           </SelectContent>
         </Select>
         {data?.error?.role && <ErrorMessage message={"Select a role"} />}
-      </div>
+      </p>
 
       <FormSubmitButton />
     </Form>
