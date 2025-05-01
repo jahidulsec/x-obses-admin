@@ -16,7 +16,7 @@ function Search({
   type?: string;
 }) {
   const searchParams = useSearchParams();
-  const [search, setSearch] = useState(searchParams.get("q") || "");
+  const [search, setSearch] = useState(searchParams.get("search") || "");
 
   const router = useRouter();
   const pathname = usePathname();
