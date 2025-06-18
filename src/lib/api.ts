@@ -1,66 +1,60 @@
 "use server";
 
-import { cookies } from "next/headers";
+import { cookies as nextCookies } from "next/headers";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-let accessToken = "";
-const refreshToken = cookies().get("refreshToken")?.value;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL!;
 
-const fetchRefreshToken = async () => {
+const fetchRefreshToken = async (refreshToken: string | undefined) => {
   try {
-    // get refresh token
-    const currentRefreshToken = cookies().get("refreshToken")?.value;
-
     const response = await fetch(`${API_BASE_URL}/api/auth/v1/token/admin`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ refreshToken: currentRefreshToken ?? "" }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refreshToken: refreshToken ?? "" }),
     });
 
     const data = await response.json();
-
     if (!response.ok) throw data;
 
     return data.data.accessToken;
   } catch (error) {
-    console.log((error as any).message);
-    cookies().delete("refreshToken");
+    console.error((error as any).message);
     return null;
   }
 };
 
-export const fetchWithAuth = async (url: string, init?: RequestInit) => {
-  const currentRefreshToken = cookies().get("refreshToken")?.value;
+export const fetchWithAuth = async (
+  url: string,
+  init?: RequestInit,
+  cookieStore = nextCookies()
+) => {
+  const refreshToken = cookieStore.get("refreshToken")?.value;
+  let accessToken = ""; // scoped per request
 
-  if (currentRefreshToken !== refreshToken) {
-    accessToken = "";
-  }
-
-  const response = await fetch(`${API_BASE_URL}${url}`, {
+  // Try request with initial empty access token
+  let response = await fetch(`${API_BASE_URL}${url}`, {
     ...init,
     headers: {
       ...init?.headers,
-      Authorization: `Bearer ${accessToken ?? " "}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 
-  if (response.status === 401) {
-    console.warn("Access token expired! Attempting to refresh...");
-    const newAccessToken = await fetchRefreshToken();
+  // If unauthorized, try to refresh
+  if (response.status === 401 && refreshToken) {
+    const newAccessToken = await fetchRefreshToken(refreshToken);
 
     if (!newAccessToken) {
+      cookieStore.delete("refreshToken");
       throw new Error("User not authenticated");
     }
 
     accessToken = newAccessToken;
 
-    return await fetch(`${API_BASE_URL}${url}`, {
+    response = await fetch(`${API_BASE_URL}${url}`, {
       ...init,
       headers: {
         ...init?.headers,
-        Authorization: `Bearer ${newAccessToken ?? ""}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
   }
