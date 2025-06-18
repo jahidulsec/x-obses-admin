@@ -60,6 +60,9 @@ export const login = async (prevState: unknown, formData: FormData) => {
 export const logout = async () => {
   try {
     await deleteSession();
+    
+    revalidateTag('profile')
+    
     return {
       success: "Your are successfully logged out",
       error: null,

@@ -4,18 +4,19 @@ import { cookies } from "next/headers";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 let accessToken = "";
+const refreshToken = cookies().get("refreshToken")?.value;
 
 const fetchRefreshToken = async () => {
   try {
     // get refresh token
-    const refreshToken = cookies().get("refreshToken")?.value;
+    const currentRefreshToken = cookies().get("refreshToken")?.value;
 
     const response = await fetch(`${API_BASE_URL}/api/auth/v1/token/admin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ refreshToken: refreshToken ?? "" }),
+      body: JSON.stringify({ refreshToken: currentRefreshToken ?? "" }),
     });
 
     const data = await response.json();
@@ -31,6 +32,12 @@ const fetchRefreshToken = async () => {
 };
 
 export const fetchWithAuth = async (url: string, init?: RequestInit) => {
+  const currentRefreshToken = cookies().get("refreshToken")?.value;
+
+  if (currentRefreshToken !== refreshToken) {
+    accessToken = "";
+  }
+
   const response = await fetch(`${API_BASE_URL}${url}`, {
     ...init,
     headers: {
