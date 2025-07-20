@@ -1,3 +1,4 @@
+import { Badge } from "@/components/badge/badge";
 import { Section } from "@/components/section/section";
 import Image from "next/image";
 import React from "react";
@@ -6,7 +7,7 @@ export default function HeroSection() {
   return (
     <div className="bg-gradient-to-b from-muted to-background">
       <Section className="bg-background min-h-[10rem] rounded-t-[5rem] p-10 flex flex-col justify-center items-center gap-10">
-        <p className="p-2 px-6 text-sm bg-muted rounded-full">Fitness App</p>
+        <Badge>Fitness App</Badge>
 
         <h2 className="text-3xl lg:text-5xl text-center font-semibold text-muted-foreground">
           The Fitness{" "}
@@ -64,7 +65,7 @@ export default function HeroSection() {
             className="border rounded-2xl absolute bottom-20 px-4 left-[15%] xl:left-[24%] -z-[1] bg-background p-4 md:block hidden"
           />
 
-             <Image
+          <Image
             src={"/images/goal.svg"}
             alt=""
             width={250}
