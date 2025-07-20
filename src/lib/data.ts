@@ -1,4 +1,4 @@
-import { Bolt, LogOut, NotepadText, Route } from "lucide-react";
+import { Bolt, Frame, LogOut, NotepadText, Route } from "lucide-react";
 
 export const navList = [
   {
@@ -14,6 +14,13 @@ export const navList = [
     key: "blog",
     url: "/dashboard/blog",
     icon: NotepadText,
+  },
+  {
+    id: 3,
+    title: "Banner",
+    key: "banner",
+    url: "/dashboard/banner",
+    icon: Frame,
   },
 ];
 
