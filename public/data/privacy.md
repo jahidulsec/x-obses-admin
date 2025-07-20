@@ -1,8 +1,6 @@
-# Privacy Policy
-
 _Last Updated: [July 20, 2025]_
 
-Thank you for choosing to be part of our community at **[FitLife App]** ("**we**", "**us**", or "**our**"). We are committed to protecting your personal information and your right to privacy.
+Thank you for choosing to be part of our community at **[X-obese App]** ("**we**", "**us**", or "**our**"). We are committed to protecting your personal information and your right to privacy.
 
 By using our fitness app, you agree to the terms outlined in this Privacy Policy.
 
@@ -57,7 +55,7 @@ Depending on your location, you may have the following rights:
 - Withdraw consent at any time
 - Opt out of marketing communications
 
-To exercise any of these rights, contact us at: **[support@fitlifeapp.com]**
+To exercise any of these rights, contact us at: **[support@xobese.com](mailto:support@xobese.com)**
 
 ---
 
@@ -77,9 +75,8 @@ We may update this Privacy Policy from time to time. We will notify you of signi
 
 If you have questions or concerns about this Privacy Policy, please contact us at:
 
-**FitLife App**  
-Email: [support@fitlifeapp.com]  
-Website: [https://www.fitlifeapp.com]
+**X-obese App**  
+Email: [support@xobese.com](mailto:support@X-obeseapp.com)  
+Website: [https://www.xobese.com](https://www.xobese.com)
 
 ---
-
