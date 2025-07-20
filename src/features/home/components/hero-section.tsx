@@ -62,7 +62,7 @@ export default function HeroSection() {
             alt=""
             width={250}
             height={250}
-            className="border rounded-2xl absolute bottom-20 px-4 left-[15%] xl:left-[24%] -z-[1] bg-background p-4 md:block hidden"
+            className="border rounded-2xl absolute bottom-20 px-4 left-[15%] xl:left-[20%] -z-[1] bg-background p-4 md:block hidden"
           />
 
           <Image
