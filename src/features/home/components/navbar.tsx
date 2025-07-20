@@ -11,7 +11,7 @@ export default function Navbar() {
 
         <Button
           size={"lg"}
-          className="shadow-none rounded-full bg-background text-foreground"
+          className="shadow-none rounded-full bg-background text-foreground hover:bg-background border border-transparent hover:border-primary transition-colors duration-300"
         >
           Download App
         </Button>

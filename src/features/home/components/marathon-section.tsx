@@ -1,5 +1,6 @@
 import { Badge } from "@/components/badge/badge";
 import { Section } from "@/components/section/section";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 
@@ -18,6 +19,7 @@ export default function MarathonSection() {
           Choose to run virtually from anywhere or join onsite events for the
           full race-day experience.
         </p>
+        <Button variant={'secondary'} className="rounded-full w-fit min-w-[10rem]">Download App</Button>
       </div>
 
       <div className="relative w-[20rem] aspect-[9/16] border-4 border-foreground rounded-3xl overflow-hidden bg-background">

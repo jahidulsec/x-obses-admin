@@ -1,4 +1,5 @@
 import { Section } from "@/components/section/section";
+import FooterSection from "@/features/home/components/footer-section";
 import HeroSection from "@/features/home/components/hero-section";
 import MarathonSection from "@/features/home/components/marathon-section";
 import Navbar from "@/features/home/components/navbar";
@@ -19,6 +20,7 @@ export default function HomePage() {
         </Section>
         <MarathonSection />
       </main>
+      <FooterSection />
     </>
   );
 }
