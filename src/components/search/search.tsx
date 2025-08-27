@@ -36,7 +36,7 @@ function Search({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative shrink max-w-[8rem] sm:max-w-xl md:min-w-[8rem]">
+    <form onSubmit={handleSubmit} className="relative shrink  flex-1 sm:max-w-xl md:min-w-[8rem]">
       <Input
         type={type}
         name="search"
@@ -55,7 +55,7 @@ function Search({
       <Button
         type="submit"
         size={"icon"}
-        className="absolute right-0 top-0 rounded-l-none"
+        className="absolute right-0 top-0 rounded-l-none hover:text-primary"
       >
         <SearchIcon size={16} />
       </Button>

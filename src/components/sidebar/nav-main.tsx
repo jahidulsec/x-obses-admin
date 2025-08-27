@@ -15,10 +15,10 @@ const NavMain = () => {
   return (
     <SidebarTopSection>
       {/* logo section */}
-      <Link href={"/"} className="logo flex gap-2 items-center px-3">
+      <Link href={"/dashboard"} className="logo flex gap-2 items-center px-3">
         <Logo />
-        <SidebarToggleText className={`text-nowrap font-semibold`}>
-          X-Obese
+        <SidebarToggleText className={`text-nowrap font-semibold text-xl h-[24px] text-primary`}>
+          Obese
         </SidebarToggleText>
       </Link>
 

@@ -14,8 +14,9 @@ import {
 import { navList } from "@/lib/data";
 import { Plus } from "lucide-react";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { MarathonForm } from "./form";
+import { SearchForm } from "@/components/search/search";
 
 export default function HeaderSection() {
   const [open, setOpen] = useState(false);
@@ -29,15 +30,21 @@ export default function HeaderSection() {
           <marathon.icon />
           {marathon?.title ?? "Dashboard"}
         </TableHeaderSectionTitle>
-        <Button
-          variant={"outline"}
-          size={"sm"}
-          className="hover:border-primary hover:bg-transparent"
-          onClick={() => setOpen(true)}
-        >
-          <Plus className="text-primary" />
-          <span className="hidden sm:block">Add marathon</span>
-        </Button>
+
+        <div className="flex items-center gap-3 flex-wrap">
+          {/* search section */}
+          <Suspense>
+            <SearchForm />
+          </Suspense>
+          <Button
+            variant={"outline"}
+            className="hover:border-primary hover:bg-transparent"
+            onClick={() => setOpen(true)}
+          >
+            <Plus className="text-primary" />
+            <span className="hidden sm:block">Add marathon</span>
+          </Button>
+        </div>
       </TableHeaderSection>
 
       {/* form modal */}

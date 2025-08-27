@@ -21,7 +21,7 @@ const LoginForm = () => {
       toast.error(data.toast);
     } else if (data?.sucess) {
       toast.success(data?.sucess);
-      router.push('/')
+      router.push('/dashboard')
     }
   }, [data]);
 

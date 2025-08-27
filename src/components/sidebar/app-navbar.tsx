@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { useSidebarContext } from "./sidebar";
 import { Breadcrump } from "../breadcrump/breadcrump";
 import { SearchForm } from "../search/search";
+import Image from "next/image";
 
 const AppNavbar = () => {
   const { onToggle } = useSidebarContext();
@@ -29,10 +30,7 @@ const AppNavbar = () => {
         <Breadcrump />
       </nav>
 
-      {/* search section */}
-      <Suspense>
-        <SearchForm />
-      </Suspense>
+      <Image width={120} height={100} src={'/images/Radiant Digital Health Logo.png'} alt="" />
     </header>
   );
 };
