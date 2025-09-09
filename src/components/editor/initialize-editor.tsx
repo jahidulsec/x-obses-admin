@@ -30,7 +30,7 @@ export default function InitializedMDXEditor({
   return (
     <MDXEditor
       contentEditableClassName={cn(props.contentEditableClassName)}
-      className={cn("markdown border p-3 rounded-md", props.className)}
+      className={cn("markdown border rounded-md p-3", props.className)}
       plugins={[
         // Example Plugin Usage
         headingsPlugin(),

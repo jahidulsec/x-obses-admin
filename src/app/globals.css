@@ -129,6 +129,15 @@
 .markdown ol {
   @apply ml-6 mb-4 list-outside;
 }
+
+.markdown ol li {
+  @apply list-decimal marker:text-muted-foreground;
+}
+
+.markdown ol li {
+  @apply list-disc marker:text-muted-foreground;
+}
+
 .markdown li {
   @apply mb-2;
 }

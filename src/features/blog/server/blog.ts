@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { fetchWithAuth } from "@/lib/api";
 import { Blog } from "@/types/blog";
@@ -13,14 +13,11 @@ export const getBlogs = async (
     // get searchparams
     const searchParams = new URLSearchParams(params ?? "").toString();
 
-    const response = await fetchWithAuth(
-      `/api/other/v1/blog?${searchParams}`,
-      {
-        next: {
-          tags: ["blog"],
-        },
-      }
-    );
+    const response = await fetchWithAuth(`/api/other/v1/blog?${searchParams}`, {
+      next: {
+        tags: ["blog"],
+      },
+    });
     const data = await response.json();
 
     if (!response.ok) throw data;
@@ -38,6 +35,31 @@ export const getBlogs = async (
   }
 };
 
+export const getBlog = async (
+  id: string
+): Promise<SingleResponseType<Blog>> => {
+  try {
+    const response = await fetchWithAuth(`/api/other/v1/blog/${id}`, {
+      next: {
+        tags: ["blog", id],
+      },
+    });
+    const data = await response.json();
+
+    if (!response.ok) throw data;
+
+    return {
+      data: data,
+      error: null,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      data: null,
+      error: error as APIError,
+    };
+  }
+};
 
 export const deleteBlog = async (
   id: string

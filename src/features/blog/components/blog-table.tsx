@@ -6,8 +6,8 @@ import { TableWrapper } from "@/components/table/table";
 import { MutiResponseType } from "@/types/response";
 import React, { useTransition } from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, ListStart, MoreVertical, Trash } from "lucide-react";
-import { formatDate, formatDateTime } from "@/lib/formatters";
+import { Edit,  MoreVertical, Trash } from "lucide-react";
+import { formatDate, } from "@/lib/formatters";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,12 +17,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import {
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  Sheet,
-} from "@/components/ui/sheet";
 import { DEFAULT_PAGE_SIZE } from "@/lib/data";
 import {
   AlertDialog,
@@ -35,16 +29,15 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Blog } from "@/types/blog";
-import { BlogForm } from "./form";
 import { deleteBlog } from "../server/blog";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function BlogTable({
   response,
 }: {
   response: MutiResponseType<Blog>["data"];
 }) {
-  const [edit, setEdit] = React.useState<any>(false);
   const [delBlog, setDelBlog] = React.useState<any>(false);
   const [isPending, startTransition] = useTransition();
 
@@ -106,8 +99,10 @@ export default function BlogTable({
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                  <DropdownMenuItem onClick={() => setEdit(Blog)}>
-                    <Edit /> Edit
+                  <DropdownMenuItem asChild>
+                    <Link href={`/dashboard/blog/${row.original.id}`}>
+                      <Edit /> Edit
+                    </Link>
                   </DropdownMenuItem>
 
                   <DropdownMenuSeparator />
@@ -142,19 +137,7 @@ export default function BlogTable({
         }
       />
 
-      {/* edit sheet */}
-      <Sheet open={!!edit} onOpenChange={setEdit}>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Edit blog</SheetTitle>
-          </SheetHeader>
-
-          {/* form */}
-          <div className="mt-5">
-            <BlogForm blog={edit} onClose={() => setEdit(false)} />
-          </div>
-        </SheetContent>
-      </Sheet>
+    
 
       {/* delete table modal */}
       <AlertDialog open={!!delBlog} onOpenChange={setDelBlog}>
