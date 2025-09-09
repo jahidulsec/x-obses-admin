@@ -176,3 +176,8 @@
 .dark .markdown hr {
   @apply border-gray-700;
 }
+
+
+.mdxeditor-popup-container {
+  display: none;
+}
