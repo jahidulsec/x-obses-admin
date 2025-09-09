@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ProgressProviders from "@/providers/ProgressProvider";
 import { Toaster } from "@/components/ui/sonner";
+import "@mdxeditor/editor/style.css";
 
 export const metadata: Metadata = {
   title: "X-Obese",
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`}>
+      <body className={`font-inter antialiased`}>
         <ProgressProviders>
           {children}
           <Toaster position="top-right" richColors closeButton />

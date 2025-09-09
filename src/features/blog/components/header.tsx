@@ -17,6 +17,7 @@ import { usePathname } from "next/navigation";
 import React, { Suspense, useState } from "react";
 import { BlogForm } from "./form";
 import { SearchForm } from "@/components/search/search";
+import Link from "next/link";
 
 export default function HeaderSection() {
   const [open, setOpen] = useState(false);
@@ -39,27 +40,16 @@ export default function HeaderSection() {
           <Button
             variant={"outline"}
             className="hover:border-primary hover:bg-transparent"
-            onClick={() => setOpen(true)}
+            // onClick={() => setOpen(true)}
+            asChild
           >
-            <Plus className="text-primary" />
-            <span className="hidden sm:block">Add blog</span>
+            <Link href={`/dashboard/blog/add`}>
+              <Plus className="text-primary" />
+              <span className="hidden sm:block">Add blog</span>
+            </Link>
           </Button>
         </div>
       </TableHeaderSection>
-
-      {/* form modal */}
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Add blog</SheetTitle>
-          </SheetHeader>
-
-          {/* form */}
-          <div className="mt-5">
-            <BlogForm onClose={() => setOpen(false)} />
-          </div>
-        </SheetContent>
-      </Sheet>
     </>
   );
 }

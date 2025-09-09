@@ -11,17 +11,18 @@ import { login } from "../actions/login";
 import { ErrorMessage } from "@/components/text/error-message";
 import { toast } from "sonner";
 import { useRouter } from "next-nprogress-bar";
+import { DashboardFooter } from "@/components/footer/footer";
 
 const LoginForm = () => {
   const [data, action] = useFormState(login, null);
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     if (data?.toast) {
       toast.error(data.toast);
     } else if (data?.sucess) {
       toast.success(data?.sucess);
-      router.push('/dashboard')
+      router.push("/dashboard");
     }
   }, [data]);
 
@@ -29,7 +30,7 @@ const LoginForm = () => {
     <main className="min-w-[20rem]">
       <form
         action={action}
-        className="[&_label]:text-sm [&_label]:text-primary [&_label]:font-semibold [&_input]:mt-1.5 flex flex-col gap-3"
+        className="mb-10 [&_label]:text-sm [&_label]:text-primary [&_label]:font-semibold [&_input]:mt-1.5 flex flex-col gap-3"
       >
         <div>
           <Label htmlFor="username">Username</Label>

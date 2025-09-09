@@ -11,19 +11,30 @@ import { ErrorMessage } from "@/components/text/error-message";
 import Image from "next/image";
 import { Blog } from "@/types/blog";
 import { addBlog, updateBlog } from "../action/blog";
+import { MDXEditorMethods } from "@mdxeditor/editor";
+import { MdEditor } from "@/components/editor/editor";
+import { useRouter } from "next-nprogress-bar";
 
-const BlogForm = ({ onClose, blog }: { onClose: () => void; blog?: Blog }) => {
+const BlogForm = ({ onClose, blog }: { onClose?: () => void; blog?: Blog }) => {
+  const ref1 = React.useRef<MDXEditorMethods>(null);
+  const [desc, setDesc] = React.useState(blog?.description ?? "");
+
+  const ref2 = React.useRef<MDXEditorMethods>(null);
+  const [details, setDetails] = React.useState(blog?.details ?? "");
+
   const [data, action] = useFormState(
     blog ? updateBlog.bind(null, blog.id) : addBlog,
     null
   );
+
+  const router = useRouter();
 
   useEffect(() => {
     if (data?.toast) {
       toast.error(data.toast);
     } else if (data?.sucess) {
       toast.success(data?.sucess);
-      onClose();
+      router.push("/dashboard/blog");
     }
   }, [data]);
 
@@ -49,24 +60,27 @@ const BlogForm = ({ onClose, blog }: { onClose: () => void; blog?: Blog }) => {
         {data?.error && <ErrorMessage message={data.error.readTime} />}
       </p>
 
-      <p>
+      <p className="flex flex-col gap-3">
         <Label>Description</Label>
-        <Textarea
-          placeholder="Type your description here."
-          name="description"
-          defaultValue={blog?.description}
-          rows={5}
+        <MdEditor
+          ref={ref1}
+          markdown={desc}
+          onChange={(markdown, _) => setDesc(markdown)}
+          placeholder="Write here..."
         />
+        <textarea name="description" value={desc} className="hidden" />
+
         {data?.error && <ErrorMessage message={data.error.description} />}
       </p>
-      <p>
+      <p className="flex flex-col gap-3">
         <Label>Details</Label>
-        <Textarea
-          placeholder="Type your details here."
-          name="details"
-          defaultValue={blog?.details}
-          rows={10}          
+        <MdEditor
+          ref={ref2}
+          markdown={details}
+          onChange={(markdown, _) => setDetails(markdown)}
+          placeholder="Write here..."
         />
+        <textarea name="details" value={details} className="hidden" />
         {data?.error && <ErrorMessage message={data.error.details} />}
       </p>
 
@@ -89,7 +103,7 @@ const BlogForm = ({ onClose, blog }: { onClose: () => void; blog?: Blog }) => {
         {data?.error && <ErrorMessage message={data?.error.imagePath} />}
       </p>
 
-      <FormSubmitButton />
+      <FormSubmitButton className="max-w-[15rem]" />
     </Form>
   );
 };
