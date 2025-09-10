@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "/node_modules/@mdxeditor/editor/dist/style.css";
 
 @font-face {
   font-family: "Inter";
@@ -96,88 +95,4 @@
 
 .font-title {
   font-family: "SpaceGrotesk";
-}
-
-.markdown {
-  @apply max-w-none text-gray-800 leading-relaxed;
-}
-.markdown p {
-  @apply mb-4;
-}
-.markdown h1 {
-  @apply text-3xl font-bold mt-6 mb-4;
-}
-.markdown h2 {
-  @apply text-2xl font-semibold mt-6 mb-3;
-}
-.markdown h3 {
-  @apply text-xl font-semibold mt-5 mb-2;
-}
-.markdown a {
-  @apply text-blue-600 underline decoration-2;
-}
-.markdown code {
-  @apply bg-gray-100 px-1 py-0.5 rounded text-sm font-medium;
-}
-.markdown pre {
-  @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm;
-}
-.markdown blockquote {
-  @apply border-l-4 border-gray-200 pl-4 italic text-gray-700 my-4;
-}
-.markdown ul,
-.markdown ol {
-  @apply ml-6 mb-4 list-outside;
-}
-
-.markdown ol li {
-  @apply list-decimal marker:text-muted-foreground;
-}
-
-.markdown ol li {
-  @apply list-disc marker:text-muted-foreground;
-}
-
-.markdown li {
-  @apply mb-2;
-}
-.markdown hr {
-  @apply border-t border-gray-200 my-6;
-}
-.markdown table {
-  @apply w-full table-auto border-collapse my-4;
-}
-.markdown thead th {
-  @apply text-sm font-semibold pb-2 border-b;
-}
-.markdown tbody td {
-  @apply py-2 border-b;
-}
-.markdown img {
-  @apply max-w-full rounded;
-}
-
-/* dark mode */
-.dark .markdown {
-  @apply text-gray-200;
-}
-.dark .markdown a {
-  @apply text-blue-400;
-}
-.dark .markdown code {
-  @apply bg-gray-800 text-gray-100;
-}
-.dark .markdown pre {
-  @apply bg-gray-800 text-gray-100;
-}
-.dark .markdown blockquote {
-  @apply border-gray-700 text-gray-300;
-}
-.dark .markdown hr {
-  @apply border-gray-700;
-}
-
-
-.mdxeditor-popup-container {
-  display: none;
 }

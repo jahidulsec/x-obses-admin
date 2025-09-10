@@ -3,7 +3,6 @@
 import { Form, FormSubmitButton } from "@/components/forms/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import React, { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
@@ -12,10 +11,10 @@ import Image from "next/image";
 import { Blog } from "@/types/blog";
 import { addBlog, updateBlog } from "../action/blog";
 import { MDXEditorMethods } from "@mdxeditor/editor";
-import { MdEditor } from "@/components/editor/editor";
 import { useRouter } from "next-nprogress-bar";
+import { MarkdownEditor } from "@/components/editor/markdown/editor";
 
-const BlogForm = ({ onClose, blog }: { onClose?: () => void; blog?: Blog }) => {
+const BlogForm = ({ blog }: { blog?: Blog }) => {
   const ref1 = React.useRef<MDXEditorMethods>(null);
   const [desc, setDesc] = React.useState(blog?.description ?? "");
 
@@ -62,7 +61,7 @@ const BlogForm = ({ onClose, blog }: { onClose?: () => void; blog?: Blog }) => {
 
       <p className="flex flex-col gap-3">
         <Label>Description</Label>
-        <MdEditor
+        <MarkdownEditor
           ref={ref1}
           markdown={desc}
           onChange={(markdown, _) => setDesc(markdown)}
@@ -74,11 +73,15 @@ const BlogForm = ({ onClose, blog }: { onClose?: () => void; blog?: Blog }) => {
       </p>
       <p className="flex flex-col gap-3">
         <Label>Details</Label>
-        <MdEditor
+
+        <MarkdownEditor
           ref={ref2}
-          markdown={details}
-          onChange={(markdown, _) => setDetails(markdown)}
           placeholder="Write here..."
+          onChange={(markdown, _) => {
+            setDetails(markdown);
+            console.log(markdown);
+          }}
+          markdown={details}
         />
         <textarea name="details" value={details} className="hidden" />
         {data?.error && <ErrorMessage message={data.error.details} />}

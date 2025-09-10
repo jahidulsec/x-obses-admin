@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ProgressProviders from "@/providers/ProgressProvider";
 import { Toaster } from "@/components/ui/sonner";
-import "@mdxeditor/editor/style.css";
+import "@mdxeditor/editor/style.css"
 
 export const metadata: Metadata = {
   title: "X-Obese",
