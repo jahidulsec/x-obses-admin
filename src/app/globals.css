@@ -96,3 +96,12 @@
 .font-title {
   font-family: "SpaceGrotesk";
 }
+
+
+.cm-editor  {
+  min-height: 10rem;
+}
+
+.cm-line {
+  font-size: 1.25rem;
+}

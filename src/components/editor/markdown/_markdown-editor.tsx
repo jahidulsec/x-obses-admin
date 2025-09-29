@@ -6,6 +6,8 @@ import {
   BlockTypeSelect,
   BoldItalicUnderlineToggles,
   CreateLink,
+  diffSourcePlugin,
+  DiffSourceToggleWrapper,
   headingsPlugin,
   InsertTable,
   InsertThematicBreak,
@@ -21,6 +23,7 @@ import {
   tablePlugin,
   thematicBreakPlugin,
   toolbarPlugin,
+  UndoRedo,
 } from "@mdxeditor/editor";
 import { ForwardedRef } from "react";
 import { markdownClassNames } from "./renderer";
@@ -29,18 +32,18 @@ export default function InternalMarkdownEditor({
   ref,
   className,
   ...props
-}: {ref: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) {
+}: { ref: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) {
   //   const isDarkMode = useIsDarkMode()
 
   return (
     <MDXEditor
       {...props}
       ref={ref}
-      contentEditableClassName={cn('', props.contentEditableClassName)}
+      contentEditableClassName={cn("", props.contentEditableClassName)}
       className={cn(
         markdownClassNames,
         "border rounded-md",
-        // isDarkMode && "dark-theme", 
+        // isDarkMode && "dark-theme",
         className
       )}
       suppressHtmlProcessing
@@ -53,6 +56,10 @@ export default function InternalMarkdownEditor({
         tablePlugin(),
         linkPlugin(),
         linkDialogPlugin(),
+        diffSourcePlugin({
+          diffMarkdown: "",
+          viewMode: 'rich-text',
+        }),
         toolbarPlugin({
           toolbarContents: () => (
             <>
@@ -62,6 +69,10 @@ export default function InternalMarkdownEditor({
               <InsertThematicBreak />
               <InsertTable />
               <CreateLink />
+
+              <DiffSourceToggleWrapper>
+                <UndoRedo />
+              </DiffSourceToggleWrapper>
             </>
           ),
         }),
