@@ -1,82 +1,114 @@
-_Last Updated: [July 20, 2025]_
+# Privacy Policy
 
-Thank you for choosing to be part of our community at **[X-obese App]** ("**we**", "**us**", or "**our**"). We are committed to protecting your personal information and your right to privacy.
+_Last updated: May 7, 2026_
 
-By using our fitness app, you agree to the terms outlined in this Privacy Policy.
+Welcome to X Obese ("we", "our", or "us"). This Privacy Policy explains how we collect, use, store, and protect your information when you use our application and services.
 
----
-
-## 1. Information We Collect
-
-We may collect the following types of personal information:
-
-- **Personal Identifiers**: Name, email address, age, gender, and other profile information.
-- **Fitness Data**: Workout history, step count, calories burned, fitness goals.
-- **Device Information**: Device type, operating system, and app usage data.
-- **Location Information**: With your permission, we may collect location data to offer location-based services.
-- **Health Data**: Only if explicitly provided by you or authorized via integrations (e.g., Apple Health, Google Fit).
+By using X Obese, you agree to the collection and use of information in accordance with this Privacy Policy.
 
 ---
 
-## 2. How We Use Your Information
+# Information We Collect
 
-We use the information we collect for purposes including:
+We may collect the following types of information:
 
-- Personalizing your fitness journey and recommendations
-- Tracking your progress and goals
-- Sending motivational updates, reminders, and alerts
-- Improving our app and services
-- Complying with legal obligations
+## Personal Information
 
----
+- Name
+- Email address
+- Profile information
+- Any information you voluntarily provide
 
-## 3. Sharing Your Information
+## Usage Data
 
-We **do not sell** or share your personal data with third parties, except in the following cases:
+We do not collect data rather than profile information. We may use location information or fitness service information of your device to give you great experience.
 
-- With your **explicit consent**
-- With **service providers** who support our app (e.g., cloud hosting)
-- If required by **law, regulation, or legal process**
-- In case of **business transfer** (e.g., merger or acquisition)
+## Cookies and Tracking Technologies
+
+We may use cookies or similar technologies to improve user experience and analyze service usage.
 
 ---
 
-## 4. Data Security
+# How We Use Your Information
 
-We implement appropriate security measures to protect your information. However, no method of transmission over the internet or electronic storage is 100% secure.
+We use collected information to:
 
----
-
-## 5. Your Rights and Choices
-
-Depending on your location, you may have the following rights:
-
-- Access, update, or delete your personal data
-- Withdraw consent at any time
-- Opt out of marketing communications
-
-To exercise any of these rights, contact us at: **[support@xobese.com](mailto:support@xobese.com)**
+- Provide and maintain our services
+- Improve application performance and user experience
+- Respond to support requests
+- Prevent abuse, fraud, and security issues
+- Comply with legal obligations
 
 ---
 
-## 6. Children's Privacy
+# Data Sharing
 
-Our app is **not intended for children under the age of 13**. We do not knowingly collect data from minors without parental consent.
+We do not sell your personal data.
+
+We may share data with:
+
+- Service providers and hosting providers
+- Analytics providers
+- Legal authorities when required by law
+
+---
+
+# Data Retention
+
+We retain user data only for as long as necessary to provide our services and fulfill the purposes described in this Privacy Policy.
+
+- Account-related data is retained while your account remains active.
+- Usage logs and analytics data may be retained for up to 12 months.
+- Backup data may remain in secure storage for a limited period before automatic deletion.
+- If you request account deletion, we will delete or anonymize your personal data within a reasonable timeframe unless retention is required by law.
 
 ---
 
-## 7. Changes to This Policy
+# Data Security
 
-We may update this Privacy Policy from time to time. We will notify you of significant changes through the app or via email.
+We implement reasonable security measures to protect your information from unauthorized access, disclosure, or misuse. However, no method of electronic storage or transmission over the Internet is completely secure.
+
+---
+
+# Third-Party Services
+
+Our application may use third-party services that collect information according to their own privacy policies.
+
+Examples may include:
+
+- Hosting providers
+- Analytics services
 
 ---
 
-## 8. Contact Us
+# Children's Privacy
 
-If you have questions or concerns about this Privacy Policy, please contact us at:
-
-**X-obese App**  
-Email: [support@xobese.com](mailto:support@X-obeseapp.com)  
-Website: [https://www.xobese.com](https://www.xobese.com)
+Our services are not intended for children under 13 years of age. We do not knowingly collect personal information from children.
 
 ---
+
+# Your Rights
+
+Depending on your location, you may have rights to:
+
+- Access your data
+- Correct inaccurate data
+- Request deletion of your data
+- Withdraw consent where applicable
+
+To exercise these rights, contact us using the information below.
+
+---
+
+# Changes to This Privacy Policy
+
+We may update this Privacy Policy from time to time. Updates will be posted on this page with a revised "Last updated" date.
+
+---
+
+# Contact Us
+
+If you have any questions about this Privacy Policy, please contact us at:
+
+- Email: [info@radiant.com.bd](mailto:info@radiant.com.bd)
+- Support: [https://www.radiantpharmabd.com/contact](https://www.radiantpharmabd.com/contact)
