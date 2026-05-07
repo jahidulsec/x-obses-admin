@@ -1,5 +1,3 @@
-# Privacy Policy
-
 _Last updated: May 7, 2026_
 
 Welcome to X Obese ("we", "our", or "us"). This Privacy Policy explains how we collect, use, store, and protect your information when you use our application and services.

@@ -21,7 +21,6 @@ export default function FooterSection() {
               Start today, stay fit forever.
             </p>
             <Button
-              variant={"secondary"}
               size={"lg"}
               className="w-fit min-w-[10rem] rounded-full mt-6"
             >
@@ -39,7 +38,7 @@ export default function FooterSection() {
               </li>
               <li>
                 <Button variant={"link"} className="px-0 text-muted-foreground" asChild>
-                  <Link href={"/privacy-policy"}>Privary Policy</Link>
+                  <Link href={"/privacy-policy/v2"}>Privacy Policy</Link>
                 </Button>
               </li>
             </ul>
