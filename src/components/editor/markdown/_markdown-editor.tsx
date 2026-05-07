@@ -1,6 +1,5 @@
 "use client";
 
-import { useIsDarkMode } from "@/hooks/useisDarkMode";
 import { cn } from "@/lib/utils";
 import {
   BlockTypeSelect,
